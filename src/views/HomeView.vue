@@ -1,10 +1,9 @@
 <script setup>
-
+import Login from "@/views/Login.vue";
 </script>
 
 <template>
   <main>
-    this is home
-    <Button label="Check" icon="pi pi-check" />
+    <Login></Login>
   </main>
 </template>
