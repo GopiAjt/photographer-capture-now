@@ -23,8 +23,6 @@ export default {
         handleLogin(){
             console.log(this.emailId);
             console.log(this.pass);
-            
-            
         }
     }
 }
