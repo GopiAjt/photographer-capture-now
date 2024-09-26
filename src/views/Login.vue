@@ -6,7 +6,7 @@
             <br>
             <InputText type="text" v-model="pass" />
             <br>
-            <Button label="Login" @click="handleLogin"/>
+            <Button label="Login" @click="handleLogin" />
         </template>
     </Card>
 </template>
@@ -22,7 +22,7 @@ export default {
         }
     },
     methods: {
-        async handleLogin(){
+        async handleLogin() {
             console.log(this.emailId);
             console.log(this.pass);
 
@@ -31,11 +31,21 @@ export default {
                 const token = await AuthService.getAuthToken(this.emailId, this.pass);
                 console.log(response);
                 console.log(token);
-                
-                
+
+
+                const user = response.data;
+                const authToken = token.data;
+
+                if (response.status == 200) {
+                    // Successful login (status 200)
+                    // this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
+                    localStorage.setItem('user', JSON.stringify(user));
+                    this.$store.dispatch('login', { user, authToken });
+                }
+
             } catch (error) {
                 console.log(error);
-                
+
             }
         }
     }

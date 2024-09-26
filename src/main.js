@@ -49,5 +49,5 @@ app.component('Card', Card);
 app.component('InputText', InputText);
 
 app.use(router)
-
+app.use(store);
 app.mount('#app')
