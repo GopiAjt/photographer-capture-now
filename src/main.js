@@ -1,4 +1,6 @@
 import './assets/main.css'
+
+import store from './stores/store';
 import { definePreset } from '@primevue/themes';
 import { createApp } from 'vue'
 import App from './App.vue'
