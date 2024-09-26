@@ -12,6 +12,8 @@
 </template>
 
 <script>
+
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
@@ -20,9 +22,21 @@ export default {
         }
     },
     methods: {
-        handleLogin(){
+        async handleLogin(){
             console.log(this.emailId);
             console.log(this.pass);
+
+            try {
+                const response = await AuthService.handleLogin(this.emailId, this.pass);
+                const token = await AuthService.getAuthToken(this.emailId, this.pass);
+                console.log(response);
+                console.log(token);
+                
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
         }
     }
 }
