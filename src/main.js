@@ -1,5 +1,5 @@
 import './assets/main.css'
-
+import { definePreset } from '@primevue/themes';
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -12,9 +12,32 @@ import InputText from 'primevue/inputtext';
 import Button from "primevue/button"
 
 const app = createApp(App)
+const MyPreset = definePreset(Aura, {
+    semantic: {
+        primary: {
+            50: '{yellow.50}',
+            100: '{yellow.100}',
+            200: '{yellow.200}',
+            300: '{yellow.300}',
+            400: '#ffff00',
+            500: '{yellow.500}',
+            600: '{yellow.600}',
+            700: '{yellow.700}',
+            800: '{yellow.800}',
+            900: '{yellow.900}',
+            950: '{yellow.950}'
+        }
+    }
+});
 app.use(PrimeVue, {
     theme: {
-        preset: Aura
+        preset: MyPreset,
+        options: {
+            cssLayer: {
+                name: 'primevue',
+                order: 'tailwind-base, primevue, tailwind-utilities'
+            }
+        }
     }
 });
 
