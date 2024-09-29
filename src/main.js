@@ -9,7 +9,7 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
-
+import Menu from 'primevue/menu';
 
 import Button from "primevue/button"
 import Toolbar from 'primevue/toolbar';
@@ -48,6 +48,7 @@ app.component('Button', Button);
 app.component('Card', Card);
 app.component('InputText', InputText);
 app.component('Toolbar', Toolbar);
+app.component('Menu', Menu);
 app.use(router)
 app.use(store);
 app.mount('#app')

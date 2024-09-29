@@ -9,9 +9,13 @@
 
             <template #end>
                 <span style="color: black;">|</span>
-               
+
                 <Avatar class="mr-2" size="1.5rem" style="background-color: #fff0; color: #2a1261" shape="circle">
-                    
+                    <div style="display: flex; justify-self: center;" class="card">
+                        <img src="/default_profile.png" width="35" alt="" @click="toggle" aria-controls="overlay_menu"
+                            style="cursor: pointer;">
+                        <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
+                    </div>
                 </Avatar>
             </template>
         </Toolbar>
@@ -20,9 +24,33 @@
 
 <script>
 export default {
+    data() {
+        return {
+            items: [
+                {
+                    label: 'Profile',
+                    icon: 'pi pi-user',
+                    command: () => {
+                        this.$router.push('/userProfile');
+                    }
+                },
+                {
+                    label: 'Log Out',
+                    icon: 'pi pi-external-link',
+                    command: () => {
+                        // this.$toast.add({ severity: 'success', summary: 'Log Out', detail: 'You have been logged out', life: 3000 });
+                        this.$store.dispatch('logout');
+                    }
+                }
+            ]
+        };
+    },
     methods: {
         navigateTo(route) {
             this.$router.push(route);
+        },
+        toggle(event) {
+            this.$refs.menu.toggle(event);
         }
     }
 }
@@ -65,5 +93,18 @@ export default {
 <style>
 .p-toolbar-end {
     gap: 20px;
+}
+
+.p-menu-item-link {
+    padding: 5%;
+}
+
+.p-menu {
+    min-width: 10rem;
+}
+
+.p-menu-item-label {
+    color: rgb(114, 114, 114);
+    font-weight: 600;
 }
 </style>
