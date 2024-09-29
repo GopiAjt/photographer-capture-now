@@ -12,7 +12,7 @@ import InputText from 'primevue/inputtext';
 
 
 import Button from "primevue/button"
-
+import Toolbar from 'primevue/toolbar';
 const app = createApp(App)
 const MyPreset = definePreset(Aura, {
     semantic: {
@@ -47,7 +47,7 @@ app.use(PrimeVue, {
 app.component('Button', Button);
 app.component('Card', Card);
 app.component('InputText', InputText);
-
+app.component('Toolbar', Toolbar);
 app.use(router)
 app.use(store);
 app.mount('#app')
