@@ -13,6 +13,7 @@
             </template>
         </Card>
     </div>
+    <h5 @click="navigateTo('/Register')" style="cursor: pointer;">Don't have an account create one!</h5>
 </template>
 
 <script>
@@ -51,6 +52,9 @@ export default {
                 console.log(error);
 
             }
+        },
+        navigateTo(route) {
+            this.$router.push(route);
         }
     }
 }

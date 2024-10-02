@@ -11,6 +11,14 @@ import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
 import Menu from 'primevue/menu';
 
+import Stepper from 'primevue/stepper';
+import StepList from 'primevue/steplist';
+import StepPanels from 'primevue/steppanels';
+import StepItem from 'primevue/stepitem';
+import Step from 'primevue/step';
+import StepPanel from 'primevue/steppanel';
+
+
 import Button from "primevue/button"
 import Toolbar from 'primevue/toolbar';
 const app = createApp(App)
@@ -49,6 +57,12 @@ app.component('Card', Card);
 app.component('InputText', InputText);
 app.component('Toolbar', Toolbar);
 app.component('Menu', Menu);
+app.component('Stepper', Stepper);
+app.component('StepList', StepList);
+app.component('StepPanels', StepPanels);
+app.component('StepItem', StepItem);
+app.component('Step', Step);
+app.component('StepPanel', StepPanel);
 app.use(router)
 app.use(store);
 app.mount('#app')
