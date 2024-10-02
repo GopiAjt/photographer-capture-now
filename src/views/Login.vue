@@ -13,7 +13,7 @@
             </template>
         </Card>
     </div>
-    <h5 @click="navigateTo('/Register')" style="cursor: pointer;">Don't have an account create one!</h5>
+    <h5 @click="navigateTo('/register')" style="cursor: pointer;">Don't have an account create one!</h5>
 </template>
 
 <script>
@@ -22,8 +22,8 @@ import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
-            emailId: null,
-            pass: null
+            emailId: 'gopiajt23@gmail.com',
+            pass: 'Trish23@'
         }
     },
     methods: {
