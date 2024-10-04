@@ -10,13 +10,14 @@ import Aura from '@primevue/themes/aura';
 import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
 import Menu from 'primevue/menu';
-
+import Password from 'primevue/password';
 import Stepper from 'primevue/stepper';
 import StepList from 'primevue/steplist';
 import StepPanels from 'primevue/steppanels';
 import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
+import Textarea from 'primevue/textarea';
 
 
 import Button from "primevue/button"
@@ -63,6 +64,8 @@ app.component('StepPanels', StepPanels);
 app.component('StepItem', StepItem);
 app.component('Step', Step);
 app.component('StepPanel', StepPanel);
+app.component('Password', Password);
+app.component('Textarea', Textarea);
 app.use(router)
 app.use(store);
 app.mount('#app')
