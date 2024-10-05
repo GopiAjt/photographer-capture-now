@@ -20,7 +20,7 @@ import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Textarea from 'primevue/textarea';
-
+import Avatar from 'primevue/avatar';
 
 import Button from "primevue/button"
 import Toolbar from 'primevue/toolbar';
@@ -69,6 +69,7 @@ app.component('Step', Step);
 app.component('StepPanel', StepPanel);
 app.component('Password', Password);
 app.component('Textarea', Textarea);
+app.component('Avatar', Avatar);
 app.use(router)
 app.use(store);
 app.mount('#app')
