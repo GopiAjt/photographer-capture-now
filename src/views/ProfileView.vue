@@ -70,7 +70,7 @@
                     <!-- <PhotographerEquipments :photographer_id="photographer.pid" /> -->
                 </TabPanel>
                 <TabPanel value="Reviews">
-                    <!-- <AllReviews :p_id="photographer.pid" /> -->
+                    <AllReviews />
                 </TabPanel>
             </TabPanels>
         </Tabs>
@@ -79,6 +79,7 @@
 </template>
 
 <script setup>
+import AllReviews from '@/components/AllReviews.vue';
 import { ref } from 'vue';
 const activeTab = ref('Albums'); // Set the default active tab
 </script>
