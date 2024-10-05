@@ -3,6 +3,7 @@ import './assets/main.css'
 import store from './stores/store';
 import { definePreset } from '@primevue/themes';
 import { createApp } from 'vue'
+import 'primeicons/primeicons.css'; // Import PrimeIcons CSS
 import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config';

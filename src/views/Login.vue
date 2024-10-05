@@ -41,6 +41,8 @@ export default {
                 const user = response.data;
                 const authToken = token.data;
 
+                console.log(user);
+                
                 if (response.status == 200) {
                     // Successful login (status 200)
                     // this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
