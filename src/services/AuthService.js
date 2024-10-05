@@ -7,8 +7,8 @@ export default {
     getAuthToken(email, password){
         return Api().get(`/photographer/authtoken?email=${email}&password=${password}`);
     },
-    register(registerBody){
-        return Api().post(`/photographer/signup`, registerBody,{
+    register(photographerRegistrationDTO){
+        return Api().post(`/photographer/signup`, photographerRegistrationDTO,{
             headers: {
                 'Content-Type': 'application/json'
             }

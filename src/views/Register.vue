@@ -101,8 +101,9 @@
                 <Step>Verify Otp</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
-                        <InputOtp v-model="value" :length="6"/>
-                        <Button label="Verify"/>
+                        <InputOtp v-model="value" :length="6" />
+                        <Button label="Send Otp" link />
+                        <Button label="Verify" />
                     </div>
                     <div class="button-group">
                         <Button label="Back" severity="secondary" @click="activateCallback('7')" />
@@ -114,6 +115,7 @@
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
@@ -127,6 +129,30 @@ export default {
             services: null,
             experience: null,
             aboutMe: null
+        }
+    },
+    methods: {
+        async handleRegister() {
+
+            // Create the PhotographerRegistrationDTO object
+            const photographerRegistrationDTO = {
+                name: this.name,
+                email: this.emailId,
+                password: this.password,
+                phoneNumber: this.phoNo,
+                serviceLocation: this.serviceLocation,
+                languages: this.languages,
+                services: this.services,
+                experience: this.experience,
+                aboutMe: this.aboutMe
+            };
+
+            try {
+                const response = await AuthService.register(photographerRegistrationDTO);
+            } catch (error) {
+                console.log(error);
+
+            }
         }
     }
 }
