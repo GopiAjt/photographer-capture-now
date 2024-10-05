@@ -46,19 +46,52 @@
             </template>
         </Card>
     </div>
+
+    <div class="card" v-if="photographer">
+        <Tabs v-model:value="activeTab">
+            <TabList>
+                <Tab value="Albums"><i class="pi pi-images" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Albums</span></Tab>
+                <Tab value="Packages"><i class="pi pi-list-check" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Packages</span></Tab>
+                <Tab value="Equipments"><i class="pi pi-briefcase" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Equipments</span></Tab>
+                <Tab value="Reviews"><i class="pi pi-star" style="font-size: 1rem"></i><span
+                        style="font-weight: bold; font-size: smaller;">Reviews</span></Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel value="Albums">
+                    <!-- <PhotographerAlbums :photographer_id="photographer.pid" /> -->
+                </TabPanel>
+                <TabPanel value="Packages">
+                    <!-- <PackageDetails :packageDetails="package" :photographer_id="photographer.pid" /> -->
+                </TabPanel>
+                <TabPanel value="Equipments">
+                    <!-- <PhotographerEquipments :photographer_id="photographer.pid" /> -->
+                </TabPanel>
+                <TabPanel value="Reviews">
+                    <!-- <AllReviews :p_id="photographer.pid" /> -->
+                </TabPanel>
+            </TabPanels>
+        </Tabs>
+    </div>
+    <Toast position="bottom-center" />
 </template>
 
+<script setup>
+import { ref } from 'vue';
+const activeTab = ref('Albums'); // Set the default active tab
+</script>
 <script>
-
-export default{
-    data(){
-        return{
+export default {
+    data() {
+        return {
             photographer: this.$store.state.user,
         }
     },
-    mounted(){
+    mounted() {
         console.log(this.photographer);
-        
+
     }
 } 
 </script>
