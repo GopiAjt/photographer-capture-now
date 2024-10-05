@@ -1,4 +1,7 @@
 <template>
+    <div style="display: flex; justify-content: center;">
+        <img src="/CaptureNow.svg" width="50px" alt="CaptureNoww">
+    </div>
     <div class="card">
         <Stepper value="1">
             <StepItem value="1">
@@ -90,6 +93,19 @@
                     </div>
                     <div class="button-group">
                         <Button label="Back" severity="secondary" @click="activateCallback('6')" />
+                        <Button label="Next" @click="activateCallback('8')" />
+                    </div>
+                </StepPanel>
+            </StepItem>
+            <StepItem value="8">
+                <Step>Verify Otp</Step>
+                <StepPanel v-slot="{ activateCallback }">
+                    <div class="step-content">
+                        <InputOtp v-model="value" :length="6"/>
+                        <Button label="Verify"/>
+                    </div>
+                    <div class="button-group">
+                        <Button label="Back" severity="secondary" @click="activateCallback('7')" />
                     </div>
                 </StepPanel>
             </StepItem>
@@ -119,7 +135,7 @@ export default {
 <style scoped>
 .card {
     border-radius: 8px;
-    padding: 20px;
+    padding: 50px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -130,12 +146,14 @@ export default {
     border: 2px dashed #e0e0e0;
     border-radius: 8px;
     padding: 20px;
+    width: 50vw;
 }
 
 .button-group {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    width: 50vw;
 }
 
 button {

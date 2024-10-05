@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
+import InputOtp from 'primevue/inputotp';
 import Menu from 'primevue/menu';
 import Password from 'primevue/password';
 import Stepper from 'primevue/stepper';
@@ -55,6 +56,7 @@ app.use(PrimeVue, {
 
 app.component('Button', Button);
 app.component('Card', Card);
+app.component('InputOtp', InputOtp);
 app.component('InputText', InputText);
 app.component('Toolbar', Toolbar);
 app.component('Menu', Menu);
