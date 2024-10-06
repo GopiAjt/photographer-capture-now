@@ -65,7 +65,7 @@
                     <!-- <PhotographerAlbums :photographer_id="photographer.pid" /> -->
                 </TabPanel>
                 <TabPanel value="Packages">
-                    <!-- <PackageDetails :packageDetails="package" :photographer_id="photographer.pid" /> -->
+                    <Packages></Packages>
                 </TabPanel>
                 <TabPanel value="Equipments">
                     <!-- <PhotographerEquipments :photographer_id="photographer.pid" /> -->
@@ -82,6 +82,7 @@
 <script setup>
 import NavBar from '@/components/NavBar.vue';
 import AllReviews from '@/components/AllReviews.vue';
+import Packages from '@/components/Packages.vue';
 import { ref } from 'vue';
 const activeTab = ref('Albums'); // Set the default active tab
 </script>
