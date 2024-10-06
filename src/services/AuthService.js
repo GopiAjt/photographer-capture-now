@@ -21,5 +21,19 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+    fetchAlbums(id, offset, pageSize, token){
+        return Api().get(`/photographer/getAlbums?email=${id}&offset=${offset}&pageSize=${pageSize}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    },
+    fetchEquipments(id, token){
+        return Api().get(`/photographer/getEquipment?email=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 };
