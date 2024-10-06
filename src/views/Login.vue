@@ -39,7 +39,7 @@ export default {
 
 
                 const user = response.data;
-                const authToken = token.data;
+                const authToken = token;
 
                 console.log(user);
                 

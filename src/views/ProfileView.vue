@@ -1,4 +1,5 @@
 <template>
+    <NavBar ></NavBar>
     <div class="card-container" v-if="photographer">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">
@@ -79,6 +80,7 @@
 </template>
 
 <script setup>
+import NavBar from '@/components/NavBar.vue';
 import AllReviews from '@/components/AllReviews.vue';
 import { ref } from 'vue';
 const activeTab = ref('Albums'); // Set the default active tab

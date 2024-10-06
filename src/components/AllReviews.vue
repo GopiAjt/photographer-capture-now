@@ -23,12 +23,31 @@
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
-            
+            reviews: null,
+            token: this.$store.state.token
         }
     },
+    methods:{
+        async fetchAllReviews(){
+            try {
+                console.log(this.token);
+                
+                // const response = AuthService.fetchReviews(id, token);
+                console.log(response);
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+                
+            }
+        }
+    },
+    mounted(){
+        this.fetchAllReviews();
+    }
 };
 </script>
 
