@@ -24,25 +24,32 @@
 
 <script>
 import AuthService from '@/services/AuthService';
+import HelperService from '@/services/HelperService';
 export default {
     data() {
         return {
             reviews: null,
-            token: this.$store.state.token
+            userData: this.$store.state.user,
+            HelperService
         }
     },
     methods:{
         async fetchAllReviews(){
             try {
-                console.log(this.token);
+                console.log(this.userData.authToken);
                 
-                // const response = AuthService.fetchReviews(id, token);
+                const response = await AuthService.fetchReviews(this.userData.email, this.userData.authToken);
                 console.log(response);
+                this.reviews = response.data;
                 console.log(response.data);
             } catch (error) {
                 console.log(error);
                 
             }
+        },
+        formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
         }
     },
     mounted(){
