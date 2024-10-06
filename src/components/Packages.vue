@@ -49,7 +49,6 @@ export default {
     data() {
         return {
             visible: false,
-            selectedPackage: null,
             HelperService,
             packageDetails: this.$store.state.user.packages
         }
