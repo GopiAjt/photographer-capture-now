@@ -43,6 +43,11 @@ import { useStore } from 'vuex';
 import { ref, watch } from 'vue';
 
 export default {
+    data(){
+        return{
+            user: this.$store.state.user
+        }
+    },
     setup(props) {
         const store = useStore(); // Access Vuex store
         const images = ref([]);
@@ -58,9 +63,20 @@ export default {
             { breakpoint: '560px', numVisible: 1 }
         ];
 
-
         const loadAlbums = async () => {
-            
+            isLoading.value = true;
+            try {
+                const offset = page.value * pageSize.value;
+                const response = await AuthService.fetchAlbums(store.state.user.id, offset, pageSize.value, store.state.user.authToken);
+                console.log(response.data);
+                
+                images.value = response.data.content;
+                totalPhotographers.value = response.data.totalElements;
+                isLoading.value = false;
+            } catch (error) {
+                console.log(error);
+                isLoading.value = false;
+            }
         };
 
         const imageClick = (index) => {
