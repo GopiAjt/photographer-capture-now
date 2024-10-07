@@ -8,6 +8,9 @@
 
 
             <template #end>
+                <Button icon="pi pi-images" aria-label="Album" rounded raised v-tooltip.bottom="'Add Albums'"/>
+                <Button icon="pi pi-list-check" aria-label="Packages" rounded raised v-tooltip.bottom="'Add Packages'"/>
+                <Button icon="pi pi-briefcase" aria-label="Equipments" rounded raised v-tooltip.bottom="'Add Equipments'"/>
                 <span style="color: black;">|</span>
 
                 <Avatar class="mr-2" size="1.5rem" style="background-color: #fff0; color: #2a1261" shape="circle">
@@ -69,10 +72,6 @@ export default {
 
 .nav-card {
     padding: 10px;
-}
-
-.p-button {
-    width: 30px;
 }
 
 .p-iconfield {

@@ -60,6 +60,8 @@ import StepPanels from 'primevue/steppanels';
 import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
+import Tooltip from 'primevue/tooltip';
+
 
 const app = createApp(App)
 const MyPreset = definePreset(Aura, {
@@ -140,6 +142,9 @@ app.component('StepPanels', StepPanels);
 app.component('StepItem', StepItem);
 app.component('Step', Step);
 app.component('StepPanel', StepPanel);
+app.component('Tooltip', Tooltip);
+
+app.directive('tooltip', Tooltip);
 app.use(router)
 app.use(store);
 app.use(ToastService);
