@@ -29,8 +29,8 @@ export default {
             }
         });
     },
-    fetchEquipments(id, token){
-        return Api().get(`/photographer/getEquipment?email=${id}`, {
+    fetchEquipments(id, offset, pageSize, token){
+        return Api().get(`/photographer/getEquipment?email=${id}&offset=${offset}&pageSize=${pageSize}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
