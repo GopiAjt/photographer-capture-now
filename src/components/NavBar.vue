@@ -8,9 +8,24 @@
 
 
             <template #end>
-                <Button icon="pi pi-images" aria-label="Album" rounded raised v-tooltip.bottom="'Add Albums'"/>
-                <Button icon="pi pi-list-check" aria-label="Packages" rounded raised v-tooltip.bottom="'Add Packages'"/>
-                <Button icon="pi pi-briefcase" aria-label="Equipments" rounded raised v-tooltip.bottom="'Add Equipments'"/>
+                <Button 
+                    icon="pi pi-images" 
+                    aria-label="Album" rounded raised 
+                    v-tooltip.bottom="'Add Albums'" 
+                    @click="addAlbumVisible = true"
+                />
+                <Button 
+                    icon="pi pi-list-check" 
+                    aria-label="Packages" rounded raised
+                    v-tooltip.bottom="'Add Packages'" 
+                    @click="addPackageVisible = true"
+                />
+                <Button 
+                    icon="pi pi-briefcase" 
+                    aria-label="Equipments" rounded raised
+                    v-tooltip.bottom="'Add Equipments'" 
+                    @click="addEquipmentVisible = true"
+                />
                 <span style="color: black;">|</span>
 
                 <Avatar class="mr-2" size="1.5rem" style="background-color: #fff0; color: #2a1261" shape="circle">
@@ -23,6 +38,24 @@
             </template>
         </Toolbar>
     </div>
+    <Drawer v-model:visible="addAlbumVisible" header="Add Albums" position="bottom" style="height: auto">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo
+            consequat.</p>
+    </Drawer>
+    <Drawer v-model:visible="addPackageVisible" header="Add Package" position="full">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo
+            consequat.</p>
+    </Drawer>
+    <Drawer v-model:visible="addEquipmentVisible" header="Add Equipments" position="bottom" style="height: auto">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo
+            consequat.</p>
+    </Drawer>
 </template>
 
 <script>
@@ -45,7 +78,10 @@ export default {
                         this.$store.dispatch('logout');
                     }
                 }
-            ]
+            ],
+            addAlbumVisible: false,
+            addPackageVisible: false,
+            addEquipmentVisible: false
         };
     },
     methods: {
