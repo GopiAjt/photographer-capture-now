@@ -39,10 +39,7 @@
         </Toolbar>
     </div>
     <Drawer v-model:visible="addAlbumVisible" header="Add Albums" position="bottom" style="height: auto">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo
-            consequat.</p>
+        <AddAlbums></AddAlbums>
     </Drawer>
     <Drawer v-model:visible="addPackageVisible" header="Add Package" position="full">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
@@ -59,7 +56,11 @@
 </template>
 
 <script>
+import AddAlbums from '@/components/AddAlbums.vue';
 export default {
+    components:{
+        AddAlbums
+    },
     data() {
         return {
             items: [

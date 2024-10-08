@@ -61,6 +61,8 @@ import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Tooltip from 'primevue/tooltip';
+import Select from 'primevue/select';
+import FileUpload from 'primevue/fileupload';
 
 
 const app = createApp(App)
@@ -143,6 +145,8 @@ app.component('StepItem', StepItem);
 app.component('Step', Step);
 app.component('StepPanel', StepPanel);
 app.component('Tooltip', Tooltip);
+app.component('Select', Select);
+app.component('FileUpload', FileUpload);
 
 app.directive('tooltip', Tooltip);
 app.use(router)
