@@ -1,12 +1,9 @@
 <template>
     <div class="card flex flex-col gap-6 items-center justify-center">
-        <Select v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-        <FileUpload 
-            ref="fileupload" 
-            mode="basic" name="demo[]" 
-            url="/api/upload" accept="image/*"
-            :maxFileSize="1000000" @upload="onUpload" />
-        <Button label="Upload" @click="upload" severity="secondary" />
+        <Select v-model="category" editable :options="categories" optionLabel="name" placeholder="Select a category"
+            class="w-full md:w-56" />
+        <FileUpload v-model="imageFiles" name="files[]" multiple accept="image/*" customUpload
+            @upload="submitGallery" />
     </div>
 </template>
 
@@ -14,22 +11,24 @@
 export default {
     data() {
         return {
-            selectedCity: null,
-            cities: [
-                { name: 'New York', code: 'NY' },
-                { name: 'Rome', code: 'RM' },
-                { name: 'London', code: 'LDN' },
-                { name: 'Istanbul', code: 'IST' },
-                { name: 'Paris', code: 'PRS' }
+            category: null,
+            imageFiles: null,
+            categories: [
+                { name: 'Wedding', value: 'wedding' },
+                { name: 'Event', value: 'event' },
+                { name: 'Portrait', value: 'portrait' },
             ]
         };
     },
     methods: {
-        upload() {
-            this.$refs.fileupload.upload();
-        },
-        onUpload() {
-            this.$toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+        submitGallery() {
+            const formData = new FormData();
+            formData.set('category', this.category);
+            formData.set('photographerName', data.email);
+
+            for (let i = 0; i < imageFiles.value.length; i++) {
+                formData.append('file', imageFiles.value[i]);
+            }
         }
     }
 };
