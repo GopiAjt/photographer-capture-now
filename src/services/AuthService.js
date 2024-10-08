@@ -35,5 +35,12 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+    addAlbums(albumData, token){
+        return Api().post(`/photographer/addAlbums`, albumData, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 };
