@@ -44,8 +44,8 @@
     </div>
 </template>
 
-
 <script>
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
@@ -62,7 +62,33 @@ export default {
                 { name: 'London', code: 'LDN' },
                 { name: 'Istanbul', code: 'IST' },
                 { name: 'Paris', code: 'PRS' }
-            ]
+            ],
+            photographer: this.$store.state.user
+        }
+    },
+    methods: {
+        async addPackageHandler() {
+            const packageData = {
+                email: this.photographer.email,
+                packageName: this.packageName,
+                category: this.category.name,
+                eventRate: this.eventPrice,
+                oneDayRate: this.oneDayPrice,
+                oneHourRate: this.oneHourPrice,
+                videoRate: this.videoPrice,
+                description: this.packageDescription
+            };
+
+            console.log(packageData);
+            
+            try {
+                const response = await AuthService.addPackge(packageData, this.photographer.authToken);
+                console.log(response.data);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
         }
     }
 }
@@ -91,7 +117,6 @@ export default {
 .form-group {
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
 .form-label {
