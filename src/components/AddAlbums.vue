@@ -13,6 +13,7 @@ export default {
         return {
             category: null,
             imageFiles: null,
+            user: this.$store.state.user,
             categories: [
                 { name: 'Wedding', value: 'wedding' },
                 { name: 'Event', value: 'event' },
@@ -22,12 +23,14 @@ export default {
     },
     methods: {
         submitGallery() {
+            console.log('upploading');
+            
             const formData = new FormData();
             formData.set('category', this.category);
-            formData.set('photographerName', data.email);
+            formData.set('photographerName', this.user.authToken);
 
-            for (let i = 0; i < imageFiles.value.length; i++) {
-                formData.append('file', imageFiles.value[i]);
+            for (let i = 0; i < this.imageFiles.length; i++) {
+                formData.append('file', this.imageFiles[i]);
             }
         }
     }
