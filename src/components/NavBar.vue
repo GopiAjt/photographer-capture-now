@@ -42,10 +42,7 @@
         <AddAlbums></AddAlbums>
     </Drawer>
     <Drawer v-model:visible="addPackageVisible" header="Add Package" position="full">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo
-            consequat.</p>
+        <CreatePackage></CreatePackage>
     </Drawer>
     <Drawer v-model:visible="addEquipmentVisible" header="Add Equipments" position="bottom" style="height: auto">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
@@ -57,9 +54,11 @@
 
 <script>
 import AddAlbums from '@/components/AddAlbums.vue';
+import CreatePackage from '@/components/CreatePackage.vue';
 export default {
     components:{
-        AddAlbums
+        AddAlbums,
+        CreatePackage
     },
     data() {
         return {
