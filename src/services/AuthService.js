@@ -41,6 +41,14 @@ export default {
             headers:{
                 'Authorization': `Bearer ${token}`
             }
-        })
+        });
+    },
+    addPackge(packageData, token){
+        return Api().post(`/photographer/addPackage`, packageData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 };

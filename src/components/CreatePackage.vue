@@ -91,7 +91,6 @@ export default {
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 2px;
     width: 100%;
 }
 
