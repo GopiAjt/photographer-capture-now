@@ -38,27 +38,26 @@
             </template>
         </Toolbar>
     </div>
-    <Drawer v-model:visible="addAlbumVisible" header="Add Albums" position="bottom" style="height: auto">
+    <Drawer v-model:visible="addAlbumVisible" header="Add Albums" position="full" style="height: auto">
         <AddAlbums></AddAlbums>
     </Drawer>
     <Drawer v-model:visible="addPackageVisible" header="Add Package" position="full">
         <CreatePackage></CreatePackage>
     </Drawer>
-    <Drawer v-model:visible="addEquipmentVisible" header="Add Equipments" position="bottom" style="height: auto">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo
-            consequat.</p>
+    <Drawer v-model:visible="addEquipmentVisible" header="Add Equipments" position="full" style="height: auto">
+        <AddEquipments></AddEquipments>
     </Drawer>
 </template>
 
 <script>
 import AddAlbums from '@/components/AddAlbums.vue';
 import CreatePackage from '@/components/CreatePackage.vue';
+import AddEquipments from '@/components/AddEquipments.vue';
 export default {
     components:{
         AddAlbums,
-        CreatePackage
+        CreatePackage,
+        AddEquipments
     },
     data() {
         return {
