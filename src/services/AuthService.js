@@ -50,5 +50,12 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+    deleteAlbum(photoId, token){
+        return Api().delete(`/photographer/deletePhoto?id=${photoId}`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        })
     }
 };

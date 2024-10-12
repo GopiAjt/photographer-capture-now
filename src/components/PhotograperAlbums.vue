@@ -20,7 +20,7 @@
                 <div class="album-images-foot">
                     <p>{{ image.category }}</p>
                     <Button icon="pi pi-trash" aria-label="Album" rounded outlined v-tooltip.bottom="'delete'"
-                        @click="deleteAlbumVisible()" />
+                        @click="deleteAlbumVisible(image.id)" />
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@ export default {
         };
     },
     methods: {
-        deleteAlbumVisible() {
+        deleteAlbumVisible(photoId) {
             this.$confirm.require({
                 message: 'Do you want to delete this Photo?',
                 header: 'Delete Album',
@@ -122,8 +122,18 @@ export default {
                     label: 'Delete',
                     severity: 'danger'
                 },
-                accept: () => {
-                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+                accept: async () => {
+                    try {
+                        const response = await AuthService.deleteAlbum(photoId, this.user.authToken);
+                        console.log(response);
+                        if (response.status === 200) {
+                            console.log('deleted');
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        
+                    }
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Photo deleted', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
