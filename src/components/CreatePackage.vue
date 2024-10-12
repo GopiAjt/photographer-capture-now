@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label for="package-description" class="form-label">Package Description</label>
-                <Textarea v-model="packageDescription" id="package-description" autoResize rows="5" cols="40" />
+                <Textarea v-model="packageDescription" id="package-description" autoResize />
             </div>
 
             <Button label="Submit" @click="addPackageHandler" />
