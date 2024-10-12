@@ -77,7 +77,7 @@ export default {
             }
 
             const formData = new FormData();
-            formData.set('category', this.category);
+            formData.set('category', this.category.name);
             formData.set('photographerName', this.user.email);
 
             // Append files to formData
