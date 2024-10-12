@@ -4,12 +4,12 @@
         <div style="display: flex; gap: 10px; justify-content: space-around">
             <!-- File Upload -->
             <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary"
-                class="p-button-outlined" multiple />
+                class="p-button-outlined" multiple fluid/>
             <Select v-model="category" editable :options="categories" optionLabel="name" placeholder="Select a category"
-                class="w-full md:w-56" />
+                class="w-full md:w-56" fluid />
             <!-- Upload Button -->
             <Button @click="submitGallery" icon="pi pi-cloud-upload" rounded outlined severity="success"
-                :disabled="imageFiles.length === 0 || imageFiles.length > 5">
+                :disabled="imageFiles.length === 0 || imageFiles.length > 5" fluid>
             </Button>
         </div>
 

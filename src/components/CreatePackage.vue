@@ -3,13 +3,13 @@
         <div style="display: flex; justify-content: space-between; gap: 15px;">
             <div class="form-group">
                 <label for="package-name" class="form-label">Package Name</label>
-                <InputText type="text" id="package-name" v-model="packageName" />
+                <InputText type="text" id="package-name" v-model="packageName" fluid/>
             </div>
 
             <div class="form-group">
                 <label for="package-category" class="form-label">Package Category</label>
                 <Select v-model="category" inputId="package-category" :options="categories" optionLabel="name"
-                    placeholder="Select a Category" />
+                    placeholder="Select a Category" fluid/>
             </div>
         </div>
 

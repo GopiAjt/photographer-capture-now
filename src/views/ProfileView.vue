@@ -1,5 +1,7 @@
 <template>
-    <NavBar ></NavBar>
+    <header>
+        <NavBar ></NavBar>
+    </header>
     <div class="card-container" v-if="photographer">
         <Card style="width: 100%; overflow: hidden">
             <template #header class="profile-img">

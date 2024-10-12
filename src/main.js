@@ -92,6 +92,9 @@ app.use(PrimeVue, {
                 order: 'tailwind-base, primevue, tailwind-utilities'
             }
         }
+    },
+    locale: {
+        choose: ''
     }
 });
 
