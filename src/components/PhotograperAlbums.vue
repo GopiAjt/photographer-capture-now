@@ -103,7 +103,8 @@ export default {
             totalPhotographers,
             isLoading,
             imageClick,
-            onPageChange
+            onPageChange,
+            loadAlbums
         };
     },
     methods: {
@@ -127,6 +128,7 @@ export default {
                         console.log(response);
                         if (response.status === 200) {
                             console.log('deleted');
+                            this.loadAlbums();
                         }
                     } catch (error) {
                         console.log(error);
