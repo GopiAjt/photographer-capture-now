@@ -35,7 +35,6 @@
             @page="onPageChange">
         </Paginator>
     </div>
-    <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
