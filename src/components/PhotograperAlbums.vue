@@ -17,24 +17,25 @@
             <div v-for="(image, index) in images" :key="index">
                 <img :src="`data:image/jpeg;base64,${image.photo}`" :alt="image.name" style="cursor: pointer"
                     @click="imageClick(index)" class="images" />
+                <div class="album-images-foot">
+                    <p>{{ image.category }}</p>
+                    <Button icon="pi pi-trash" aria-label="Album" rounded outlined v-tooltip.bottom="'delete'"
+                        @click="deleteAlbumVisible()" />
+                </div>
             </div>
         </div>
     </div>
     <div v-if="images" style="text-align: center;">
-        <ProgressSpinner v-if="isLoading" style="width: 50px; height: 50px" 
-            strokeWidth="8" fill="transparent"
-            animationDuration=".5s" 
-            aria-label="Loading.." />
+        <ProgressSpinner v-if="isLoading" style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+            animationDuration=".5s" aria-label="Loading.." />
         <h3 v-if="images.length === 0">No Albums to Display!</h3>
     </div>
     <div class="card">
-        <Paginator 
-            :rows="pageSize" 
-            :totalRecords="totalPhotographers" 
-            :rowsPerPageOptions="[10, 20, 30]"
+        <Paginator :rows="pageSize" :totalRecords="totalPhotographers" :rowsPerPageOptions="[10, 20, 30]"
             @page="onPageChange">
         </Paginator>
     </div>
+    <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
@@ -43,8 +44,8 @@ import { useStore } from 'vuex';
 import { ref, watch } from 'vue';
 
 export default {
-    data(){
-        return{
+    data() {
+        return {
             user: this.$store.state.user
         }
     },
@@ -69,7 +70,7 @@ export default {
                 const offset = page.value * pageSize.value;
                 const response = await AuthService.fetchAlbums(store.state.user.id, offset, pageSize.value, store.state.user.authToken);
                 console.log(response.data);
-                
+
                 images.value = response.data.content;
                 totalPhotographers.value = response.data.totalElements;
                 isLoading.value = false;
@@ -105,6 +106,30 @@ export default {
             imageClick,
             onPageChange
         };
+    },
+    methods: {
+        deleteAlbumVisible() {
+            this.$confirm.require({
+                message: 'Do you want to delete this Photo?',
+                header: 'Delete Album',
+                icon: 'pi pi-info-circle',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Delete',
+                    severity: 'danger'
+                },
+                accept: () => {
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                }
+            });
+        }
     }
 };
 </script>
@@ -121,6 +146,13 @@ export default {
     justify-content: space-evenly;
     align-items: center;
     gap: 1.5rem;
+}
+
+.album-images-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .images {
