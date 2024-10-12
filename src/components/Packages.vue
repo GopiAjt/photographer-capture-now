@@ -34,7 +34,8 @@
                         <p>
                             <strong>Total Price:</strong> {{ packages.eventRate + 100 }}
                         </p>
-                        <Button label="Delete" class="p-button-sm p-button-dark" @click="deletePackage(packages.id)" raised outlined />
+                        <Button icon="pi pi-trash" aria-label="delete" rounded outlined v-tooltip.bottom="'delete'"
+                            @click="deletePackageVisible(packages.id)" />
                     </div>
                 </template>
             </Panel>
@@ -44,19 +45,49 @@
 
 <script>
 import HelperService from '@/services/HelperService';
-
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
             visible: false,
             HelperService,
-            packageDetails: this.$store.state.user.packages
+            packageDetails: this.$store.state.user.packages,
+            user: this.$store.state.user
         }
     },
     methods: {
-        deletePackage(){
-            console.log('deleting');
-            
+        deletePackageVisible(packageId) {
+            this.$confirm.require({
+                message: 'Do you want to delete this Equipment?',
+                header: 'Delete Equipment',
+                icon: 'pi pi-info-circle',
+                rejectProps: {
+                    label: 'Cancel',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Delete',
+                    severity: 'danger'
+                },
+                accept: async () => {
+                    try {
+                        const response = await AuthService.deletePackage(packageId, this.user.authToken);
+                        console.log(response);
+                        if (response.status === 200) {
+                            console.log('deleted');
+                            this.packageDetails = this.packageDetails.filter(packages => packages.id !== packageId);
+                        }
+                    } catch (error) {
+                        console.log(error);
+
+                    }
+                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Photo deleted', life: 3000 });
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+                }
+            });
         }
     }
 };

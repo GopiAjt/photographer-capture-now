@@ -56,6 +56,13 @@ export default {
             headers: {
                 'Authorization' : `Bearer ${token}`
             }
-        })
+        });
+    },
+    deletePackage(packageId, token){
+        return Api().delete(`/photographer/deletePackage?id=${packageId}`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        });
     }
 };
