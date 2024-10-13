@@ -30,7 +30,7 @@
 
                 <Avatar class="mr-2" size="1.5rem" style="background-color: #fff0; color: #2a1261" shape="circle">
                     <div style="display: flex; justify-self: center;" class="card">
-                        <img src="/default_profile.png" width="35" alt="" @click="toggle" aria-controls="overlay_menu"
+                        <img :src="userData.profilePhoto ? `data:image/jpeg;base64,${userData.profilePhoto}` : '/default_profile.png'" width="35" alt="" @click="toggle" aria-controls="overlay_menu"
                             style="cursor: pointer;">
                         <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
                     </div>
@@ -61,6 +61,7 @@ export default {
     },
     data() {
         return {
+            userData: this.$store.state.user,
             items: [
                 {
                     label: 'Profile',
