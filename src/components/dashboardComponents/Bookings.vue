@@ -7,7 +7,7 @@
             <template #legend>
                 <div style="display: flex; align-items: center; gap: 5px">
                     <Avatar image="/default_profile.png" shape="circle" />
-                    <span style="font-weight: bold;">{{ b.photographerName }}</span>
+                    <span style="font-weight: bold;">{{ b.customerName }}</span>
                 </div>
             </template>
             <div class="b-header">
@@ -19,8 +19,7 @@
                 <AccordionPanel>
                     <AccordionHeader>package details</AccordionHeader>
                     <AccordionContent>
-                        <p class="m-0" v-html="HelperService.addLineBreaks(b.bookedPackage.description)"></p>
-
+                        <pre class="formatted-text-display">{{ b.bookedPackage.description }}</pre>
                         <br>
                         <div style="display: flex; justify-content: space-between;">
                             <p>Event Price: {{ b.bookedPackage.eventRate }}</p>
@@ -36,7 +35,7 @@
             <br>
             <div style="display: flex; gap: 2rem;">
                 <Button label="Accept" @click="confirmAccept($event, b.bookingId)" fluid outlined></Button>
-                <Button label="Cancel" @click="confirmCancel($event, b.bookingId)" text raised />
+                <Button label="Cancel" @click="confirmDecline($event, b.bookingId)" text raised />
             </div>
         </Fieldset>
     </div>
@@ -73,10 +72,10 @@ export default {
                 this.$toast.add({ severity: 'error', summary: 'Failed to load bookings', life: 3000 });
             }
         },
-        confirmCancel(event, bookingId) {
+        confirmDecline(event, bookingId) {
             this.$confirm.require({
                 target: event.currentTarget,
-                message: 'Do you want to cancel this booking?',
+                message: 'Do you want to decline this booking?',
                 icon: 'pi pi-info-circle',
                 position: 'bottom',
                 rejectProps: {
@@ -100,7 +99,7 @@ export default {
         confirmAccept(event, bookingId) {
             this.$confirm.require({
                 target: event.currentTarget,
-                message: 'Do you want to cancel this booking?',
+                message: 'Do you want to accept this booking?',
                 icon: 'pi pi-info-circle',
                 position: 'bottom',
                 rejectProps: {
@@ -125,20 +124,20 @@ export default {
             try {
                 await AuthService.acceptBooking(bookingId, this.photographer.authToken);
                 this.getBookingData(); // Refresh bookings after cancellation
-                this.$toast.add({ severity: 'success', summary: 'Cancelled', detail: 'Booking has been cancelled', life: 3000 });
+                this.$toast.add({ severity: 'success', summary: 'Accepted', detail: 'Booking has been Accepted', life: 3000 });
             } catch (error) {
-                console.error('Error cancelling booking:', error);
-                this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to cancel booking', life: 3000 });
+                console.error('Error accepting booking:', error);
+                this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to Accept booking', life: 3000 });
             }
         },
-        async declineBooking(bookingId){
+        async declineBooking(bookingId) {
             try {
                 await AuthService.declineBooking(bookingId, this.photographer.authToken);
                 this.getBookingData(); // Refresh bookings after cancellation
-                this.$toast.add({ severity: 'success', summary: 'Cancelled', detail: 'Booking has been cancelled', life: 3000 });
+                this.$toast.add({ severity: 'info', summary: 'Declined', detail: 'Booking has been Declined', life: 3000 });
             } catch (error) {
-                console.error('Error cancelling booking:', error);
-                this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to cancel booking', life: 3000 });
+                console.error('Error declining booking:', error);
+                this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to Decline booking', life: 3000 });
             }
         },
         getSeverity(status) {
@@ -167,5 +166,16 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.formatted-text-display {
+    white-space: pre-wrap;
+    /* This will ensure text wraps within the container */
+    word-wrap: break-word;
+    /* This ensures long words break and wrap */
+    width: 100%;
+    /* Ensure the text stays within the container width */
+    overflow-wrap: break-word;
+    /* Fallback for older browsers */
 }
 </style>
