@@ -66,7 +66,7 @@ export default {
                     label: 'Profile',
                     icon: 'pi pi-user',
                     command: () => {
-                        this.$router.push('/userProfile');
+                        this.$router.push('/dashboard');
                     }
                 },
                 {
