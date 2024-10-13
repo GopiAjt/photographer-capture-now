@@ -24,7 +24,7 @@
             </TabList>
             <TabPanels>
                 <TabPanel value="Bookings">
-                    
+                    <Bookings></Bookings>
                 </TabPanel>
                 <TabPanel value="Favorites">
                     
@@ -42,6 +42,7 @@
 </template>
 
 <script setup>
+import Bookings from '@/components/dashboardComponents/Bookings.vue';
 import NavBar from '@/components/NavBar.vue';
 import { ref } from 'vue';
 const activeTab = ref('Bookings'); // Set the default active tab
@@ -50,7 +51,8 @@ const activeTab = ref('Bookings'); // Set the default active tab
 <script>
 export default {
     components: {
-        NavBar
+        NavBar,
+        Bookings
     },
     data() {
         return {

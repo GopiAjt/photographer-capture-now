@@ -64,5 +64,12 @@ export default {
                 'Authorization' : `Bearer ${token}`
             }
         });
+    },
+    getBookings(id, token){
+        return Api().get(`/photographer/getBookingStatus?emailId=${id}`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        });
     }
 };
