@@ -46,6 +46,8 @@
 
 <script>
 import AuthService from '@/services/AuthService';
+import { CategoryService } from '@/services/CategoryService';
+
 export default {
     data() {
         return {
@@ -56,15 +58,14 @@ export default {
             videoPrice: null,
             packageDescription: null,
             category: null,
-            categories: [
-                { name: 'New York', code: 'NY' },
-                { name: 'Rome', code: 'RM' },
-                { name: 'London', code: 'LDN' },
-                { name: 'Istanbul', code: 'IST' },
-                { name: 'Paris', code: 'PRS' }
-            ],
+            categories: null,
             photographer: this.$store.state.user
         }
+    },
+    mounted() {
+        CategoryService.getCategories().then((data) => {
+            this.categories = data;
+        });
     },
     methods: {
         async addPackageHandler() {

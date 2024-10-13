@@ -27,6 +27,7 @@
 
 <script>
 import AuthService from '@/services/AuthService';
+import { CategoryService } from '@/services/CategoryService';
 export default {
     data() {
         return {
@@ -34,12 +35,13 @@ export default {
             user: this.$store.state.user,
             imageFiles: [], // Store the selected files here
             imagePreviews: [], // Store the image URLs for preview
-            categories: [
-                { name: 'Wedding', value: 'wedding' },
-                { name: 'Event', value: 'event' },
-                { name: 'Portrait', value: 'portrait' },
-            ]
+            categories: null
         };
+    },
+    mounted() {
+        CategoryService.getCategories().then((data) => {
+            this.categories = data;
+        });
     },
     methods: {
         onFileSelect(event) {
