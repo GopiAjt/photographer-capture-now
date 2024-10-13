@@ -35,7 +35,7 @@
             </div>
             <br>
             <div style="display: flex; gap: 2rem;">
-                <Button label="Pay" fluid outlined></Button>
+                <Button label="Accept" @click="confirmAccept($event, b.bookingId)" fluid outlined></Button>
                 <Button label="Cancel" @click="confirmCancel($event, b.bookingId)" text raised />
             </div>
         </Fieldset>
@@ -47,7 +47,6 @@
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
 import HelperService from '@/services/HelperService';
-import store from '@/stores/store';
 
 export default {
     data() {
@@ -91,16 +90,50 @@ export default {
                     outlined: true
                 },
                 accept: async () => {
-                    await this.cancelBooking(bookingId);
+                    await this.declineBooking(bookingId);
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Cancelled', detail: 'You rejected the cancellation', life: 3000 });
                 }
             });
         },
-        async cancelBooking(bookingId) {
+        confirmAccept(event, bookingId) {
+            this.$confirm.require({
+                target: event.currentTarget,
+                message: 'Do you want to cancel this booking?',
+                icon: 'pi pi-info-circle',
+                position: 'bottom',
+                rejectProps: {
+                    label: 'No',
+                    severity: 'secondary',
+                    outlined: true
+                },
+                acceptProps: {
+                    label: 'Yes',
+                    severity: 'danger',
+                    outlined: true
+                },
+                accept: async () => {
+                    await this.acceptBooking(bookingId);
+                },
+                reject: () => {
+                    this.$toast.add({ severity: 'error', summary: 'Cancelled', detail: 'You rejected the cancellation', life: 3000 });
+                }
+            });
+        },
+        async acceptBooking(bookingId) {
             try {
-                await AuthService.cancelBooking(bookingId, this.store.state.token);
+                await AuthService.acceptBooking(bookingId, this.photographer.authToken);
+                this.getBookingData(); // Refresh bookings after cancellation
+                this.$toast.add({ severity: 'success', summary: 'Cancelled', detail: 'Booking has been cancelled', life: 3000 });
+            } catch (error) {
+                console.error('Error cancelling booking:', error);
+                this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to cancel booking', life: 3000 });
+            }
+        },
+        async declineBooking(bookingId){
+            try {
+                await AuthService.declineBooking(bookingId, this.photographer.authToken);
                 this.getBookingData(); // Refresh bookings after cancellation
                 this.$toast.add({ severity: 'success', summary: 'Cancelled', detail: 'Booking has been cancelled', life: 3000 });
             } catch (error) {

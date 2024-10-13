@@ -71,5 +71,19 @@ export default {
                 'Authorization' : `Bearer ${token}`
             }
         });
+    },
+    declineBooking(bookigId, token){
+        return Api().delete(`/photographer/acceptDeclineBooking?status=${false}&bookingId=${bookigId}`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        });
+    },
+    acceptBooking(bookigId, token){
+        return Api().delete(`/photographer/acceptDeclineBooking?status=${true}&bookingId=${bookigId}`, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        });
     }
 };
