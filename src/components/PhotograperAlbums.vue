@@ -35,17 +35,23 @@
             @page="onPageChange">
         </Paginator>
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
+import LoadingScreen from './LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
 import { ref, watch } from 'vue';
 
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
-            user: this.$store.state.user
+            user: this.$store.state.user,
+            isLoading: false
         }
     },
     setup(props) {
@@ -124,6 +130,7 @@ export default {
                 },
                 accept: async () => {
                     try {
+                        this.isLoading = true;
                         const response = await AuthService.deleteAlbum(photoId, this.user.authToken);
                         console.log(response);
                         if (response.status === 200) {
@@ -132,7 +139,8 @@ export default {
                         }
                     } catch (error) {
                         console.log(error);
-                        
+                    }finally{
+                        this.isLoading = false;
                     }
                     this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Photo deleted', life: 3000 });
                 },
