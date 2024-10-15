@@ -21,19 +21,23 @@
                 <img :src="image" alt="Image Preview" class="shadow-md rounded-xl images" />
             </div>
         </div>
-
-
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
+import LoadingScreen from './LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             imageFiles: [], // Store the selected files here
             imagePreviews: [], // Store the image URLs for preview
-            user: this.$store.state.user
+            user: this.$store.state.user,
+            isLoading: false
         };
     },
     methods: {
@@ -81,6 +85,7 @@ export default {
             }
 
             try {
+                this.isLoading = true;
                 const response = await AuthService.addAlbums(formData, this.user.authToken);
                 console.log(response);
                 console.log("Images uploaded successfully");
@@ -89,6 +94,8 @@ export default {
             } catch (error) {
                 console.log("Error during upload:", error);
                 // Handle error (e.g., show an error message)
+            }finally{
+                this.isLoading = false;
             }
         }
     }

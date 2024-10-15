@@ -20,23 +20,28 @@
             </template>
         </Card>
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
-
+import LoadingScreen from '@/components/LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             emailId: 'gopiajt23@gmail.com',
-            pass: 'Trish23@'
+            pass: 'Trish23@',
+            isLoading: false
         }
     },
     methods: {
         async handleLogin() {
             console.log(this.emailId);
             console.log(this.pass);
-
+            this.isLoading = true;
             try {
                 const response = await AuthService.handleLogin(this.emailId, this.pass);
                 const token = await AuthService.getAuthToken(this.emailId, this.pass);
@@ -59,7 +64,9 @@ export default {
 
             } catch (error) {
                 console.log(error);
-
+            }
+            finally{
+                this.isLoading = false;
             }
         },
         navigateTo(route) {

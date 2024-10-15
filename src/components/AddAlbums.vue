@@ -23,19 +23,25 @@
             </div>
         </div>
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
 import { CategoryService } from '@/services/CategoryService';
+import LoadingScreen from './LoadingScreen.vue';
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             category: null,
             user: this.$store.state.user,
             imageFiles: [], // Store the selected files here
             imagePreviews: [], // Store the image URLs for preview
-            categories: null
+            categories: null,
+            isLoading: false
         };
     },
     mounted() {
@@ -88,6 +94,7 @@ export default {
             }
 
             try {
+                this.isLoading = true;
                 const response = await AuthService.addAlbums(formData, this.user.authToken);
                 console.log(response);
                 console.log("Images uploaded successfully");
@@ -96,6 +103,8 @@ export default {
             } catch (error) {
                 console.log("Error during upload:", error);
                 // Handle error (e.g., show an error message)
+            }finally{
+                this.isLoading = false;
             }
         }
     }

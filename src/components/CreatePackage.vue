@@ -42,13 +42,18 @@
             <Button label="Submit" @click="addPackageHandler" />
         </div>
     </div>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
+import LoadingScreen from './LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 import { CategoryService } from '@/services/CategoryService';
 
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             packageName: null,
@@ -59,7 +64,8 @@ export default {
             packageDescription: null,
             category: null,
             categories: null,
-            photographer: this.$store.state.user
+            photographer: this.$store.state.user,
+            isLoading: false
         }
     },
     mounted() {
@@ -83,12 +89,15 @@ export default {
             console.log(packageData);
             
             try {
+                this.isLoading = true;
                 const response = await AuthService.addPackge(packageData, this.photographer.authToken);
                 console.log(response.data);
                 
             } catch (error) {
                 console.log(error);
                 
+            }finally{
+                this.isLoading = false;
             }
         }
     }
