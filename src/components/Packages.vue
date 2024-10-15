@@ -12,8 +12,8 @@
                 <p class="m-0">
                     <strong style="font-weight: 500;">Description:</strong><br>
                     <!-- <span v-html="HelperService.addLineBreaks(packages.description)"></span> -->
-                <pre class="formatted-text-display">{{ packages.description }}</pre>
                 </p>
+                <pre class="formatted-text-display">{{ packages.description }}</pre>
 
                 <br>
                 <div class="p-footer">

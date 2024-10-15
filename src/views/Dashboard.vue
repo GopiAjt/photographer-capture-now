@@ -12,13 +12,13 @@
                 <Tab value="Bookings"><i class="pi pi-book" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">Bookings</p>
                 </Tab>
-                <Tab value="Favorites"><i class="pi pi-heart" style="font-size: 1rem"></i>
+                <Tab value="Account"><i class="pi pi-user" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">Account</p>
                 </Tab>
-                <Tab value="Account"><i class="pi pi-user" style="font-size: 1rem"></i>
+                <Tab value="Password"><i class="pi pi-cog" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">Password</p>
                 </Tab>
-                <Tab value="Password"><i class="pi pi-cog" style="font-size: 1rem"></i>
+                <Tab value="kyc"><i class="pi pi-cog" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">KYC</p>
                 </Tab>
             </TabList>
