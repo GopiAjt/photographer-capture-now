@@ -74,8 +74,9 @@ export default {
                     label: 'Log Out',
                     icon: 'pi pi-external-link',
                     command: () => {
-                        // this.$toast.add({ severity: 'success', summary: 'Log Out', detail: 'You have been logged out', life: 3000 });
+                        this.$toast.add({ severity: 'success', summary: 'Log Out', detail: 'You have been logged out', life: 3000 });
                         this.$store.dispatch('logout');
+                        this.navigateTo('/login');
                     }
                 }
             ],
