@@ -26,7 +26,7 @@
         </div>
     </div>
     <div v-if="images" style="text-align: center;">
-        <ProgressSpinner v-if="isLoading" style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+        <ProgressSpinner v-if="Loading" style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
             animationDuration=".5s" aria-label="Loading.." />
         <h3 v-if="images.length === 0">No Albums to Display!</h3>
     </div>
@@ -62,7 +62,7 @@ export default {
         const page = ref(0);
         const pageSize = ref(10);
         const totalPhotographers = ref(0);
-        const isLoading = ref(false);
+        const Loading = ref(false);
         const responsiveOptions = [
             { breakpoint: '1024px', numVisible: 5 },
             { breakpoint: '768px', numVisible: 3 },
@@ -70,7 +70,7 @@ export default {
         ];
 
         const loadAlbums = async () => {
-            isLoading.value = true;
+            Loading.value = true;
             try {
                 const offset = page.value * pageSize.value;
                 const response = await AuthService.fetchAlbums(store.state.user.id, offset, pageSize.value, store.state.user.authToken);
@@ -78,10 +78,10 @@ export default {
 
                 images.value = response.data.content;
                 totalPhotographers.value = response.data.totalElements;
-                isLoading.value = false;
+                Loading.value = false;
             } catch (error) {
                 console.log(error);
-                isLoading.value = false;
+                Loading.value = false;
             }
         };
 
@@ -107,7 +107,7 @@ export default {
             page,
             pageSize,
             totalPhotographers,
-            isLoading,
+            Loading,
             imageClick,
             onPageChange,
             loadAlbums

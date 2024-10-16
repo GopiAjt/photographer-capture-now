@@ -1,4 +1,6 @@
 <template>
+    <ProgressSpinner v-if="Loading" style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+        animationDuration=".5s" aria-label="Loading.." />
     <div v-if="!bookings || bookings.length === 0" style="text-align: center;">
         <h3>You Don't Have Any Bookings Found!</h3>
     </div>
@@ -52,7 +54,8 @@ export default {
         return {
             bookings: [],
             HelperService,
-            photographer: this.$store.state.user
+            photographer: this.$store.state.user,
+            Loading: false
         }
     },
     computed: {
@@ -63,13 +66,15 @@ export default {
     methods: {
         async getBookingData() {
             try {
+                this.Loading = true;
                 const response = await AuthService.getBookings(this.photographer.email, this.photographer.authToken);
                 this.bookings = response.data;
                 console.log(response.data);
-
             } catch (error) {
                 console.error('Error fetching bookings:', error);
                 this.$toast.add({ severity: 'error', summary: 'Failed to load bookings', life: 3000 });
+            }finally{
+                this.Loading = false;
             }
         },
         confirmDecline(event, bookingId) {
