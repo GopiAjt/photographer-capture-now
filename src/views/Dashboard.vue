@@ -12,8 +12,8 @@
                 <Tab value="Bookings"><i class="pi pi-book" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">Bookings</p>
                 </Tab>
-                <Tab value="Account"><i class="pi pi-user" style="font-size: 1rem"></i>
-                    <p style="font-weight: bold; font-size: smaller;">Account</p>
+                <Tab value="profileDetails"><i class="pi pi-user" style="font-size: 1rem"></i>
+                    <p style="font-weight: bold; font-size: smaller;">Profile</p>
                 </Tab>
                 <Tab value="Password"><i class="pi pi-cog" style="font-size: 1rem"></i>
                     <p style="font-weight: bold; font-size: smaller;">Password</p>
@@ -26,10 +26,10 @@
                 <TabPanel value="Bookings">
                     <Bookings></Bookings>
                 </TabPanel>
-                <TabPanel value="Favorites">
-                    
+                <TabPanel value="profileDetails">
+                    <ProfileDetails></ProfileDetails>
                 </TabPanel>
-                <TabPanel value="Account">
+                <TabPanel value="Favorites">
                     
                 </TabPanel>
                 <TabPanel value="Password">
@@ -44,6 +44,7 @@
 <script setup>
 import Bookings from '@/components/dashboardComponents/Bookings.vue';
 import NavBar from '@/components/NavBar.vue';
+import ProfileDetails from '@/components/dashboardComponents/ProfileDetails.vue';
 import { ref } from 'vue';
 const activeTab = ref('Bookings'); // Set the default active tab
 
