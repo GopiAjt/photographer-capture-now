@@ -42,20 +42,25 @@
         </Fieldset>
     </div>
     <ConfirmDialog></ConfirmDialog>
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
 import HelperService from '@/services/HelperService';
-
+import LoadingScreen from '../LoadingScreen.vue';
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             bookings: [],
             HelperService,
             photographer: this.$store.state.user,
-            Loading: false
+            Loading: false,
+            isLoading: false
         }
     },
     computed: {
@@ -127,22 +132,28 @@ export default {
         },
         async acceptBooking(bookingId) {
             try {
+                this.isLoading = true;
                 await AuthService.acceptBooking(bookingId, this.photographer.authToken);
                 this.getBookingData(); // Refresh bookings after cancellation
                 this.$toast.add({ severity: 'success', summary: 'Accepted', detail: 'Booking has been Accepted', life: 3000 });
             } catch (error) {
                 console.error('Error accepting booking:', error);
                 this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to Accept booking', life: 3000 });
+            }finally{
+                this.isLoading = false;
             }
         },
         async declineBooking(bookingId) {
             try {
+                this.isLoading = true;
                 await AuthService.declineBooking(bookingId, this.photographer.authToken);
                 this.getBookingData(); // Refresh bookings after cancellation
                 this.$toast.add({ severity: 'info', summary: 'Declined', detail: 'Booking has been Declined', life: 3000 });
             } catch (error) {
                 console.error('Error declining booking:', error);
                 this.$toast.add({ severity: 'error', summary: 'Failed', detail: 'Failed to Decline booking', life: 3000 });
+            }finally{
+                this.isLoading = false;
             }
         },
         getSeverity(status) {
