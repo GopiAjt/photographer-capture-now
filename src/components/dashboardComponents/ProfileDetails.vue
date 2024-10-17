@@ -33,6 +33,8 @@
         <label for="aboutMe" class="form-label">About Me</label>
         <Textarea v-model="aboutMe" id="aboutMe" autoResize cols="30" />
     </div>
+    <br>
+    <Button label="Update" rounded fluid />
 </template>
 
 <script>
@@ -45,8 +47,22 @@ export default {
             languages: null,
             services: null,
             experiences: null,
-            aboutMe: null
+            aboutMe: null,
+            photographer: this.$store.state.user
         }
+    },
+    methods: {
+        
+    },
+    mounted() {
+        console.log(this.photographer);
+        this.userName = this.photographer.name;
+        this.phoneNumber = this.photographer.phoneNumber;
+        this.serviceLocation = this.photographer.serviceLocation;
+        this.languages = this.photographer.languages;
+        this.services = this.photographer.services;
+        this.experiences = this.photographer.experience;
+        this.aboutMe = this.photographer.aboutMe;
     }
 }
 </script>
