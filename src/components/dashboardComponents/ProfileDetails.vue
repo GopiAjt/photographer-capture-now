@@ -34,10 +34,11 @@
         <Textarea v-model="aboutMe" id="aboutMe" autoResize cols="30" />
     </div>
     <br>
-    <Button label="Update" rounded fluid />
+    <Button label="Update" @click="updateDetails()" rounded fluid />
 </template>
 
 <script>
+import AuthService from '@/services/AuthService';
 export default {
     data() {
         return {
@@ -52,7 +53,30 @@ export default {
         }
     },
     methods: {
-        
+
+        async updateDetails() {
+            const photographer = {
+                name: this.userName,
+                email: this.photographer.email,
+                phoneNumber: this.phoneNumber,
+                serviceLocation: this.serviceLocation,
+                languages: this.languages,
+                services: this.services,
+                experience: this.experiences,
+                aboutMe: this.aboutMe,
+            };
+
+            console.log(photographer);
+            
+            try {
+                const response = await AuthService.updateProfileInfo(photographer, this.photographer.authToken);
+                console.log(response);
+                
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
     },
     mounted() {
         console.log(this.photographer);

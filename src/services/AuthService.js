@@ -85,5 +85,13 @@ export default {
                 'Authorization' : `Bearer ${token}`
             }
         });
+    },
+    updateProfileInfo(photographer, token){
+        return Api().put(`/photographer/updateProfileInfo`, photographer, {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 };
