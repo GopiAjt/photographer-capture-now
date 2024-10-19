@@ -40,7 +40,7 @@
                 <p class="p-info">
                     <strong><i class="pi pi-camera" style="font-size: 1rem"></i></strong> {{ photographer.services }}
                 </p>
-                <p class="p-info">
+                <p style="display: flex; align-items: baseline; gap: 10px;">
                     <i class="pi pi-info-circle" style="font-size: 1rem"></i> {{ photographer.aboutMe }}
                 </p>
             </template>

@@ -16,22 +16,22 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="event-rate" class="form-label">Event Price</label>
-                <InputNumber v-model="eventPrice" inputId="event-rate" locale="en-IN" :minFractionDigits="2" />
+                <InputNumber v-model="eventPrice" inputId="event-rate" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
                 <label for="one-day-rate" class="form-label">One Day Price</label>
-                <InputNumber v-model="oneDayPrice" inputId="one-day-rate" locale="en-IN" :minFractionDigits="2" />
+                <InputNumber v-model="oneDayPrice" inputId="one-day-rate" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
                 <label for="one-hour-rate" class="form-label">One Hour Price</label>
-                <InputNumber v-model="oneHourPrice" inputId="one-hour-rate" locale="en-IN" :minFractionDigits="2" />
+                <InputNumber v-model="oneHourPrice" inputId="one-hour-rate" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
                 <label for="video-price" class="form-label">Videography Price</label>
-                <InputNumber v-model="videoPrice" inputId="video-price" locale="en-IN" :minFractionDigits="2" />
+                <InputNumber v-model="videoPrice" inputId="video-price" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
@@ -92,7 +92,8 @@ export default {
                 this.isLoading = true;
                 const response = await AuthService.addPackge(packageData, this.photographer.authToken);
                 console.log(response.data);
-                
+                this.photographer.packages = response.data;
+                this.$store.commit('setUser', this.photographer);
             } catch (error) {
                 console.log(error);
                 
