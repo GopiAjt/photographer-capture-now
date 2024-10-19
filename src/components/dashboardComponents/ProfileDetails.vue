@@ -35,11 +35,17 @@
     </div>
     <br>
     <Button label="Update" @click="updateDetails()" rounded fluid />
+
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
+import LoadingScreen from '../LoadingScreen.vue';
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
             userName: null,
@@ -49,7 +55,8 @@ export default {
             services: null,
             experiences: null,
             aboutMe: null,
-            photographer: this.$store.state.user
+            photographer: this.$store.state.user,
+            isLoading: false
         }
     },
     methods: {
@@ -67,14 +74,27 @@ export default {
             };
 
             console.log(photographer);
-            
+
             try {
+                this.isLoading = true;
                 const response = await AuthService.updateProfileInfo(photographer, this.photographer.authToken);
                 console.log(response);
-                
+                this.$toast.add({ severity: 'success', summary: 'Details updated successfully!', life: 3000 });
+
+                this.photographer.name = this.userName;
+                this.photographer.phoneNumber = this.phoneNumber;
+                this.photographer.serviceLocation = this.serviceLocation;
+                this.photographer.languages = this.languages;
+                this.photographer.services = this.services;
+                this.photographer.experience = this.experiences;
+                this.photographer.aboutMe = this.aboutMe;
+
+                this.$store.commit('setUser', this.photographer);
             } catch (error) {
                 console.log(error);
-
+                this.$toast.add({ severity: 'error', summary: 'Failed to update details', life: 3000 });
+            } finally {
+                this.isLoading = false
             }
         }
     },
