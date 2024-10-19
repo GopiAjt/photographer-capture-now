@@ -26,7 +26,7 @@
 
     <div style="display: flex; flex-direction: column; gap: 5px;">
         <label for="experiences">Experiences</label>
-        <InputText id="experiences" v-model="experiences" aria-describedby="experiences-help" />
+        <InputNumber v-model="experiences" id="experiences" mode="decimal" showButtons :min="0" :max="100" fluid />
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 5px;">
