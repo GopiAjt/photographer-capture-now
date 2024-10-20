@@ -1,41 +1,42 @@
 <template>
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="Name">Name</label>
-        <InputText id="Name" v-model="userName" aria-describedby="userName-help" />
-    </div>
+    <div class="p-panel">
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="Name">Name</label>
+            <InputText id="Name" v-model="userName" aria-describedby="userName-help" />
+        </div>
 
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="phoneNumber">Phone number</label>
-        <InputText id="phoneNumber" v-model="phoneNumber" aria-describedby="phoneNumber-help" />
-    </div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="phoneNumber">Phone number</label>
+            <InputText id="phoneNumber" v-model="phoneNumber" aria-describedby="phoneNumber-help" />
+        </div>
 
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="serviceLocation">Service Location</label>
-        <InputText id="serviceLocation" v-model="serviceLocation" aria-describedby="serviceLocation-help" />
-    </div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="serviceLocation">Service Location</label>
+            <InputText id="serviceLocation" v-model="serviceLocation" aria-describedby="serviceLocation-help" />
+        </div>
 
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="languages">Languages Known</label>
-        <InputText id="languages" v-model="languages" aria-describedby="languages-help" />
-    </div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="languages">Languages Known</label>
+            <InputText id="languages" v-model="languages" aria-describedby="languages-help" />
+        </div>
 
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="services">Services</label>
-        <InputText id="services" v-model="services" aria-describedby="services-help" />
-    </div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="services">Services</label>
+            <InputText id="services" v-model="services" aria-describedby="services-help" />
+        </div>
 
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="experiences">Experiences</label>
-        <InputNumber v-model="experiences" id="experiences" mode="decimal" showButtons :min="0" :max="100" fluid />
-    </div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="experiences">Experiences</label>
+            <InputNumber v-model="experiences" id="experiences" mode="decimal" showButtons :min="0" :max="100" fluid />
+        </div>
 
-    <div style="display: flex; flex-direction: column; gap: 5px;">
-        <label for="aboutMe" class="form-label">About Me</label>
-        <Textarea v-model="aboutMe" id="aboutMe" autoResize cols="30" />
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label for="aboutMe" class="form-label">About Me</label>
+            <Textarea v-model="aboutMe" id="aboutMe" autoResize cols="30" />
+        </div>
+        <br>
+        <Button label="Update" @click="updateDetails()" fluid />
     </div>
-    <br>
-    <Button label="Update" @click="updateDetails()" rounded fluid />
-
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
@@ -110,3 +111,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.p-panel{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+</style>
