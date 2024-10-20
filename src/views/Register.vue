@@ -120,6 +120,9 @@
                 </StepPanel>
             </StepItem>
         </Stepper>
+        <br>
+        <h4 @click="navigateTo('/login')" style="cursor: pointer;">Allready have an Account!</h4>
+        <br>
     </div>
     <Toast position="bottom-center" />
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
@@ -178,7 +181,6 @@ export default {
                 const status = error.response.status;
                 if (status === 409) {
                     this.$toast.add({ severity: 'error', summary: 'This Account allready exists', life: 3000 });
-                    this.navigateTo('/login');
                 }
             }
             finally{
@@ -238,6 +240,9 @@ export default {
     padding-left: 15rem;
     padding-right: 15rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .step-content {
