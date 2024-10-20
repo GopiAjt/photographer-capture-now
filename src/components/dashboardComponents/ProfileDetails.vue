@@ -114,7 +114,6 @@ export default {
 
 <style scoped>
 .p-panel{
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 5%;
 }
 </style>
