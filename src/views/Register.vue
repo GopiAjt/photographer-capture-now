@@ -1,4 +1,5 @@
 <template>
+    <br>
     <div style="display: flex; justify-content: center;">
         <img src="/CaptureNow.svg" width="50px" alt="CaptureNoww">
     </div>
@@ -8,9 +9,9 @@
                 <Step>Personal details</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
-                        <InputText v-model="name" type="text" placeholder="Name" />
-                        <InputText v-model="emailId" type="email" placeholder="Email Id" />
-                        <InputText v-model="phoNo" type="text" placeholder="Phone No" />
+                        <InputText v-model="name" type="text" placeholder="Name" fluid />
+                        <InputText v-model="emailId" type="email" placeholder="Email Id" fluid />
+                        <InputNumber v-model="phoNo" :useGrouping="false" placeholder="Phone No" fluid />
                     </div>
                     <div class="button-group">
                         <Button label="Next" @click="activateCallback('2')" />
@@ -22,8 +23,14 @@
                 <Step>Set Password</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
-                        <Password v-model="password" toggleMask fluid />
-                        <Password v-model="confirmPassword" :feedback="false" fluid />
+                        <div>
+                            <label for="password">Enter a new password</label>
+                            <Password v-model="password" toggleMask fluid />
+                        </div>
+                        <div>
+                            <label for="password">Re-Enter your password</label>
+                            <Password v-model="confirmPassword" :feedback="false" fluid />
+                        </div>
                     </div>
                     <div class="button-group">
                         <Button label="Back" severity="secondary" @click="activateCallback('1')" />
@@ -75,7 +82,8 @@
                 <Step>Experience</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
-                        <InputText v-model="experience" type="text" placeholder="Experience" />
+                        <InputNumber v-model="experience" inputId="experience-buttons" mode="decimal" showButtons
+                            :min="0" :max="100" />
                     </div>
                     <div class="button-group">
                         <Button label="Back" severity="secondary" @click="activateCallback('5')" />
@@ -101,8 +109,9 @@
                 <Step>Verify Otp</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
-                        <InputOtp v-model="value" :length="6" />
                         <Button label="Send Otp" link />
+                        <label for="otp">Enter otp sent to your Email id</label>
+                        <InputOtp v-model="value" :length="6" />
                         <Button label="Verify" />
                     </div>
                     <div class="button-group">
@@ -161,7 +170,8 @@ export default {
 <style scoped>
 .card {
     border-radius: 8px;
-    padding: 50px;
+    padding-left: 15rem;
+    padding-right: 15rem;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -172,7 +182,7 @@ export default {
     border: 2px dashed #e0e0e0;
     border-radius: 8px;
     padding: 20px;
-    width: 50vw;
+    align-items: center;
 }
 
 .button-group {
@@ -196,5 +206,14 @@ textarea.responsive-textarea {
     border: 1px solid #ddd;
     border-radius: 4px;
     resize: vertical;
+}
+
+@media (max-width: 575px) {
+    .card {
+        border-radius: 8px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
 }
 </style>
