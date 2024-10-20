@@ -53,7 +53,7 @@ export default {
             visible: false,
             HelperService,
             packageDetails: this.$store.state.user.packages,
-            user: this.$store.state.user
+            photographer: this.$store.state.user
         }
     },
     methods: {
@@ -73,17 +73,19 @@ export default {
                 },
                 accept: async () => {
                     try {
-                        const response = await AuthService.deletePackage(packageId, this.user.authToken);
+                        const response = await AuthService.deletePackage(packageId, this.photographer.authToken);
                         console.log(response);
                         if (response.status === 200) {
                             console.log('deleted');
                             this.packageDetails = this.packageDetails.filter(packages => packages.id !== packageId);
+                            this.photographer.packages = this.packageDetails;
+                            this.$store.commit('setUser', this.photographer);
+                            this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Package deleted', life: 3000 });
                         }
                     } catch (error) {
                         console.log(error);
-
+                        this.$toast.add({ severity: 'info', summary: 'Declined', detail: 'unable to delete this package', life: 3000 });    
                     }
-                    this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Photo deleted', life: 3000 });
                 },
                 reject: () => {
                     this.$toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
