@@ -21,6 +21,7 @@
         </Card>
     </div>
     <LoadingScreen :isVisible="isLoading"></LoadingScreen>
+    <Toast position="bottom-center" />
 </template>
 
 <script>

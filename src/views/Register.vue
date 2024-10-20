@@ -122,24 +122,30 @@
         </Stepper>
     </div>
     <Toast position="bottom-center" />
+    <LoadingScreen :isVisible="isLoading"></LoadingScreen>
 </template>
 
 <script>
 import AuthService from '@/services/AuthService';
+import LoadingScreen from '@/components/LoadingScreen.vue';
 export default {
+    components: {
+        LoadingScreen
+    },
     data() {
         return {
-            name: null,
-            emailId: null,
-            phoNo: null,
-            password: null,
-            confirmPassword: null,
-            serviceLocation: null,
-            languages: null,
-            services: null,
-            experience: null,
-            aboutMe: null,
-            otp: null
+            name: 'gopi',
+            emailId: 'trishajt23@gmail.com',
+            phoNo: '9008830298',
+            password: 'Trish23@',
+            confirmPassword: 'Trish23@',
+            serviceLocation: 'belgavi',
+            languages: 'hindi',
+            services: 'anything',
+            experience: '1',
+            aboutMe: 'good',
+            otp: null,
+            isLoading: false
         }
     },
     methods: {
@@ -159,27 +165,38 @@ export default {
             };
 
             try {
+                this.isLoading = true;
+                console.log(photographerRegistrationDTO);
+                
                 const response = await AuthService.register(photographerRegistrationDTO);
                 console.log(response);
-                if (response.status == 201) {
+                if (response.status === 201) {
                     this.$toast.add({ severity: 'success', summary: 'Otp has been sent to Mail', life: 3000 });
-                }
-                if (response.status == 200) {
-                    this.$toast.add({ severity: 'error', summary: 'This Account allready exists', life: 3000 });
                 }
             } catch (error) {
                 console.log(error);
+                const status = error.response.status;
+                if (status === 409) {
+                    this.$toast.add({ severity: 'error', summary: 'This Account allready exists', life: 3000 });
+                    this.navigateTo('/login');
+                }
+            }
+            finally{
+                this.isLoading = false;
             }
         },
         async verifyAndLogin() {
 
             try {
 
+                this.isLoading = true;
                 const response = await AuthService.validateOtp(this.emailId, this.otp);
 
-                if (response.status == 200) {
-                    const token = await AuthService.getAuthToken(this.emailId, this.pass);
-                    const response = await AuthService.handleLogin(this.emailId, this.pass);
+                console.log(response);
+                
+                if (response.status === 202) {
+                    const token = await AuthService.getAuthToken(this.emailId, this.password);
+                    const response = await AuthService.handleLogin(this.emailId, this.password);
                     console.log(response);
                     console.log(token);
 
@@ -200,7 +217,12 @@ export default {
 
             } catch (error) {
                 console.log(error);
-
+                const status = error.response.status;
+                if(status == 400){
+                    this.navigateTo('/login');
+                }
+            } finally{
+                this.isLoading = false;
             }
         },
         navigateTo(route) {
