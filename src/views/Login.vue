@@ -43,8 +43,8 @@ export default {
             console.log(this.pass);
             this.isLoading = true;
             try {
-                const response = await AuthService.handleLogin(this.emailId, this.pass);
                 const token = await AuthService.getAuthToken(this.emailId, this.pass);
+                const response = await AuthService.handleLogin(this.emailId, this.pass);
                 console.log(response);
                 console.log(token);
 
