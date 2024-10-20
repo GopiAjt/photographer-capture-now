@@ -109,10 +109,10 @@
                 <Step>Verify Otp</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
-                        <Button label="Send Otp" link />
+                        <Button label="Send Otp" link @click="handleRegister()" />
                         <label for="otp">Enter otp sent to your Email id</label>
-                        <InputOtp v-model="value" :length="6" />
-                        <Button label="Verify" />
+                        <InputOtp v-model="otp" :length="6" />
+                        <Button label="Verify" @click="verifyAndLogin()" />
                     </div>
                     <div class="button-group">
                         <Button label="Back" severity="secondary" @click="activateCallback('7')" />
@@ -121,6 +121,7 @@
             </StepItem>
         </Stepper>
     </div>
+    <Toast position="bottom-center" />
 </template>
 
 <script>
@@ -137,7 +138,8 @@ export default {
             languages: null,
             services: null,
             experience: null,
-            aboutMe: null
+            aboutMe: null,
+            otp: null
         }
     },
     methods: {
@@ -158,10 +160,51 @@ export default {
 
             try {
                 const response = await AuthService.register(photographerRegistrationDTO);
+                console.log(response);
+                if (response.status == 201) {
+                    this.$toast.add({ severity: 'success', summary: 'Otp has been sent to Mail', life: 3000 });
+                }
+                if (response.status == 200) {
+                    this.$toast.add({ severity: 'error', summary: 'This Account allready exists', life: 3000 });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async verifyAndLogin() {
+
+            try {
+
+                const response = await AuthService.validateOtp(this.emailId, this.otp);
+
+                if (response.status == 200) {
+                    const token = await AuthService.getAuthToken(this.emailId, this.pass);
+                    const response = await AuthService.handleLogin(this.emailId, this.pass);
+                    console.log(response);
+                    console.log(token);
+
+
+                    const user = response.data;
+                    const authToken = token;
+
+                    console.log(user);
+
+                    if (response.status == 200) {
+                        // Successful login (status 200)
+                        // this.$toast.add({ severity: 'success', summary: 'Logged in', life: 3000 });
+                        localStorage.setItem('user', JSON.stringify(user));
+                        this.$store.dispatch('login', { user, authToken });
+                        this.navigateTo('/');
+                    }
+                }
+
             } catch (error) {
                 console.log(error);
 
             }
+        },
+        navigateTo(route) {
+            this.$router.push(route);
         }
     }
 }

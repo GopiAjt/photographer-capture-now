@@ -14,6 +14,9 @@ export default {
             }
         })
     },
+    validateOtp(emailId, otp){
+        return Api().get(`/photographer/validate?email=${emailId}&otp=${otp}`);
+    },
     fetchReviews(id, token) {
         return Api().get(`/photographer/getReviews?email=${id}`, {
             headers: {
