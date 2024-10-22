@@ -91,6 +91,7 @@ export default {
                 console.log("Images uploaded successfully");
                 this.imagePreviews = null;
                 // Handle success (e.g., show a success message)
+                this.$store.commit('equipmentsUpdated');
             } catch (error) {
                 console.log("Error during upload:", error);
                 // Handle error (e.g., show an error message)
