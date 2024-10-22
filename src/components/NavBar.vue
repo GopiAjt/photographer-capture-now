@@ -1,3 +1,4 @@
+<!-- NavBar.vue -->
 <template>
     <div class="nav-card">
         <Toolbar id="blurred-toolbar">

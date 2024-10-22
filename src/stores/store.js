@@ -12,6 +12,7 @@ const store = createStore({
             }
         })(),
         isLogedIn: !!localStorage.getItem('token'),
+        albumUpdateFlag: false,
     },
     mutations: {
         setUser(state, user) {
@@ -35,6 +36,9 @@ const store = createStore({
         setIsLogedIn(state, status) {
             state.isLogedIn = status;
         }, 
+        albumUpdated(state) {
+            state.albumUpdateFlag = !state.albumUpdateFlag; // Toggle the flag to indicate an update
+        },
     },
     actions: {
         login({ commit }, { user, token }) {

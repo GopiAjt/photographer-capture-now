@@ -1,10 +1,11 @@
+<!-- AddAlbums.vue -->
 <template>
     <div class="card flex flex-col gap-6 items-center justify-center">
 
         <div style="display: flex; gap: 10px; justify-content: space-around">
             <!-- File Upload -->
             <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary"
-                class="p-button-outlined" multiple fluid/>
+                class="p-button-outlined" multiple fluid />
             <Select v-model="category" editable :options="categories" optionLabel="name" placeholder="Select a category"
                 class="w-full md:w-56" fluid />
             <!-- Upload Button -->
@@ -100,10 +101,12 @@ export default {
                 console.log("Images uploaded successfully");
                 this.imagePreviews = null;
                 // Handle success (e.g., show a success message)
+                // Commit the Vuex mutation or dispatch an action
+                this.$store.commit('albumUpdated');
             } catch (error) {
                 console.log("Error during upload:", error);
                 // Handle error (e.g., show an error message)
-            }finally{
+            } finally {
                 this.isLoading = false;
             }
         }

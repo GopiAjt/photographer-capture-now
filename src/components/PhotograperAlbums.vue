@@ -1,3 +1,4 @@
+<!-- PhotographerAlbums.vue -->
 <template>
     <div class="album-card">
         <Galleria v-model:activeIndex="activeIndex" v-model:visible="displayCustom" :value="images"
@@ -43,6 +44,7 @@ import LoadingScreen from './LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 import { useStore } from 'vuex';
 import { ref, watch } from 'vue';
+import { mapState } from 'vuex';
 
 export default {
     components: {
@@ -52,6 +54,15 @@ export default {
         return {
             user: this.$store.state.user,
             isLoading: false
+        }
+    },
+    computed: {
+        ...mapState(['albumUpdateFlag'])  // Get the album update flag from Vuex
+    },
+    watch: {
+        albumUpdateFlag(newVal) {
+            // Whenever the flag changes, refetch the albums
+            this.loadAlbums();
         }
     },
     setup(props) {
