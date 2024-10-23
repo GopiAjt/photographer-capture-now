@@ -81,15 +81,24 @@ export default {
         ];
 
         const loadAlbums = async () => {
+            // Check if albums are already in the Vuex store
+            if (store.getters.albums.length > 0) {
+                images.value = store.getters.albums;  // Use cached albums
+                totalPhotographers.value = store.getters.albums.length; // Set total photographers from cache
+                return; // Skip fetching from backend
+            }
+
             Loading.value = true;
             try {
                 const offset = page.value * pageSize.value;
                 const response = await AuthService.fetchAlbums(store.state.user.id, offset, pageSize.value, store.state.user.authToken);
                 console.log(response.data);
 
+                store.dispatch('setAlbums', response.data.content); // Dispatch action to set the albums in Vuex
                 images.value = response.data.content;
                 totalPhotographers.value = response.data.totalElements;
                 Loading.value = false;
+
             } catch (error) {
                 console.log(error);
                 Loading.value = false;
@@ -150,7 +159,7 @@ export default {
                         }
                     } catch (error) {
                         console.log(error);
-                    }finally{
+                    } finally {
                         this.isLoading = false;
                     }
                     this.$toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Photo deleted', life: 3000 });

@@ -1,3 +1,4 @@
+// store.js
 import { createStore } from 'vuex';
 
 const store = createStore({
@@ -14,6 +15,7 @@ const store = createStore({
         isLogedIn: !!localStorage.getItem('token'),
         albumUpdateFlag: false,
         equipmentsUpdateFlag: false,
+        albums: [] // Keep this for storing albums
     },
     mutations: {
         setUser(state, user) {
@@ -36,12 +38,15 @@ const store = createStore({
         },
         setIsLogedIn(state, status) {
             state.isLogedIn = status;
-        }, 
+        },
         albumUpdated(state) {
             state.albumUpdateFlag = !state.albumUpdateFlag; // Toggle the flag to indicate an update
         },
-        equipmentsUpdated(state){
+        equipmentsUpdated(state) {
             state.equipmentsUpdateFlag = !state.equipmentsUpdateFlag;
+        },
+        setAlbums(state, albums) {
+            state.albums = albums; // Set the albums in the state
         }
     },
     actions: {
@@ -55,12 +60,16 @@ const store = createStore({
             commit('clearToken');
             commit('setIsLogedIn', false);
         },
+        setAlbums({ commit }, albums) {
+            commit('setAlbums', albums); // Commit the albums to the state
+        }
     },
     getters: {
         isAuthenticated: state => !!state.token && !!state.user,
         user: state => state.user,
         token: state => state.token,
         isLogedIn: state => state.isLogedIn,
+        albums: state => state.albums // Getter for albums
     }
 });
 
