@@ -62,7 +62,7 @@ export default {
     watch: {
         albumUpdateFlag(newVal) {
             // Whenever the flag changes, refetch the albums
-            this.loadAlbums();
+            this.loadAlbums(true);
         }
     },
     setup(props) {
@@ -80,9 +80,9 @@ export default {
             { breakpoint: '560px', numVisible: 1 }
         ];
 
-        const loadAlbums = async () => {
+        const loadAlbums = async (forceReload = false) => {
             // Check if albums are already in the Vuex store
-            if (store.getters.albums.length > 0) {
+            if (!forceReload && store.getters.albums.length > 0) {
                 images.value = store.getters.albums;  // Use cached albums
                 totalPhotographers.value = store.getters.albums.length; // Set total photographers from cache
                 return; // Skip fetching from backend
@@ -155,7 +155,7 @@ export default {
                         console.log(response);
                         if (response.status === 200) {
                             console.log('deleted');
-                            this.loadAlbums();
+                            this.loadAlbums(true);
                         }
                     } catch (error) {
                         console.log(error);

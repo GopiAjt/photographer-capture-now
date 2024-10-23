@@ -97,7 +97,7 @@ export default {
             try {
                 this.isLoading = true;
                 const response = await AuthService.addAlbums(formData, this.user.authToken);
-                console.log(response);
+                console.log(response.data);
                 console.log("Images uploaded successfully");
                 this.imagePreviews = null;
                 // Handle success (e.g., show a success message)
