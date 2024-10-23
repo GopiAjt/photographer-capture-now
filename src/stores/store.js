@@ -15,7 +15,8 @@ const store = createStore({
         isLogedIn: !!localStorage.getItem('token'),
         albumUpdateFlag: false,
         equipmentsUpdateFlag: false,
-        albums: [] // Keep this for storing albums
+        albums: [],
+        equipments: [],
     },
     mutations: {
         setUser(state, user) {
@@ -47,7 +48,10 @@ const store = createStore({
         },
         setAlbums(state, albums) {
             state.albums = albums; // Set the albums in the state
-        }
+        },
+        setEquipments(state, equipments){
+            state.equipments = equipments;
+        },
     },
     actions: {
         login({ commit }, { user, token }) {
@@ -62,6 +66,9 @@ const store = createStore({
         },
         setAlbums({ commit }, albums) {
             commit('setAlbums', albums); // Commit the albums to the state
+        },
+        setEquipments({ commit }, equipments){
+            commit('setEquipments', equipments);
         }
     },
     getters: {
@@ -69,7 +76,8 @@ const store = createStore({
         user: state => state.user,
         token: state => state.token,
         isLogedIn: state => state.isLogedIn,
-        albums: state => state.albums // Getter for albums
+        albums: state => state.albums, // Getter for albums
+        equipments: state => state.equipments
     }
 });
 

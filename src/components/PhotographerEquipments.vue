@@ -81,12 +81,19 @@ export default {
         ];
 
         const loadAlbums = async () => {
+            // Check if albums are already in the Vuex store
+            if (store.getters.equipments.length > 0) {
+                images.value = store.getters.equipments;  // Use cached albums
+                totalPhotographers.value = store.getters.equipments.length; // Set total photographers from cache
+                return; // Skip fetching from backend
+            }
             Loading.value = true;
             try {
                 const offset = page.value * pageSize.value;
                 const response = await AuthService.fetchEquipments(store.state.user.id, offset, pageSize.value, store.state.user.authToken);
                 console.log(response.data);
 
+                store.dispatch('setEquipments', response.data.content); // Dispatch action to set the equipments in Vuex
                 images.value = response.data.content;
                 totalPhotographers.value = response.data.totalElements;
                 Loading.value = false;
