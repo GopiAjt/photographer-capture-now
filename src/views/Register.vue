@@ -40,73 +40,6 @@
             </StepItem>
 
             <StepItem value="3">
-                <Step>Service Location</Step>
-                <StepPanel v-slot="{ activateCallback }">
-                    <div class="step-content">
-                        <InputText v-model="serviceLocation" type="text" placeholder="Service Location" fluid />
-                    </div>
-                    <div class="button-group">
-                        <Button label="Back" severity="secondary" @click="activateCallback('2')" />
-                        <Button label="Next" @click="handleNextStep(3, activateCallback, '4')" />
-                    </div>
-                </StepPanel>
-            </StepItem>
-
-            <StepItem value="4">
-                <Step>Languages</Step>
-                <StepPanel v-slot="{ activateCallback }">
-                    <div class="step-content">
-                        <InputText v-model="languages" type="text" placeholder="Languages" fluid />
-                    </div>
-                    <div class="button-group">
-                        <Button label="Back" severity="secondary" @click="activateCallback('3')" />
-                        <Button label="Next" @click="handleNextStep(4, activateCallback, '5')" />
-                    </div>
-                </StepPanel>
-            </StepItem>
-
-            <StepItem value="5">
-                <Step>Services</Step>
-                <StepPanel v-slot="{ activateCallback }">
-                    <div class="step-content">
-                        <InputText v-model="services" type="text" placeholder="Services" fluid />
-                    </div>
-                    <div class="button-group">
-                        <Button label="Back" severity="secondary" @click="activateCallback('4')" />
-                        <Button label="Next" @click="handleNextStep(5, activateCallback, '6')" />
-                    </div>
-                </StepPanel>
-            </StepItem>
-
-            <StepItem value="6">
-                <Step>Experience</Step>
-                <StepPanel v-slot="{ activateCallback }">
-                    <div class="step-content">
-                        <InputNumber v-model="experience" inputId="experience-buttons" mode="decimal" showButtons
-                            :min="0" :max="100" />
-                    </div>
-                    <div class="button-group">
-                        <Button label="Back" severity="secondary" @click="activateCallback('5')" />
-                        <Button label="Next" @click="handleNextStep(6, activateCallback, '7')" />
-                    </div>
-                </StepPanel>
-            </StepItem>
-
-            <StepItem value="7">
-                <Step>About Me</Step>
-                <StepPanel v-slot="{ activateCallback }">
-                    <div class="step-content">
-                        <Textarea v-model="aboutMe" autoResize rows="5" cols="40" fluid placeholder="About Me"
-                            class="responsive-textarea" />
-                    </div>
-                    <div class="button-group">
-                        <Button label="Back" severity="secondary" @click="activateCallback('6')" />
-                        <Button label="Next" @click="handleNextStep(7, activateCallback, '8')" />
-                    </div>
-                </StepPanel>
-            </StepItem>
-
-            <StepItem value="8">
                 <Step>Verify Otp</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="step-content">
@@ -116,7 +49,7 @@
                         <Button label="Verify" @click="verifyAndLogin()" />
                     </div>
                     <div class="button-group">
-                        <Button label="Back" severity="secondary" @click="activateCallback('7')" />
+                        <Button label="Back" severity="secondary" @click="activateCallback('2')" />
                     </div>
                 </StepPanel>
             </StepItem>
@@ -144,11 +77,6 @@ export default {
             phoNo: null,
             password: null,
             confirmPassword: null,
-            serviceLocation: null,
-            languages: null,
-            services: null,
-            experience: null,
-            aboutMe: null,
             otp: null,
             isLoading: false,
             errors: {}  // Add this to store validation errors
@@ -186,41 +114,6 @@ export default {
             }
             return Object.keys(this.errors).length === 0;
         },
-        validateStep3() {
-            this.errors = {};
-            if (!this.serviceLocation) {
-                this.errors.serviceLocation = 'Service Location is required';
-            }
-            return Object.keys(this.errors).length === 0;
-        },
-        validateStep4() {
-            this.errors = {};
-            if (!this.languages) {
-                this.errors.languages = 'Languages are required';
-            }
-            return Object.keys(this.errors).length === 0;
-        },
-        validateStep5() {
-            this.errors = {};
-            if (!this.services) {
-                this.errors.services = 'Services are required';
-            }
-            return Object.keys(this.errors).length === 0;
-        },
-        validateStep6() {
-            this.errors = {};
-            if (this.experience === null) {
-                this.errors.experience = 'Experience is required';
-            }
-            return Object.keys(this.errors).length === 0;
-        },
-        validateStep7() {
-            this.errors = {};
-            if (!this.aboutMe) {
-                this.errors.aboutMe = 'About Me section is required';
-            }
-            return Object.keys(this.errors).length === 0;
-        },
 
         // Helper method to check for valid email format
         isValidEmail(email) {
@@ -238,21 +131,6 @@ export default {
                 case 2:
                     isValid = this.validateStep2();
                     break;
-                case 3:
-                    isValid = this.validateStep3();
-                    break;
-                case 4:
-                    isValid = this.validateStep4();
-                    break;
-                case 5:
-                    isValid = this.validateStep5();
-                    break;
-                case 6:
-                    isValid = this.validateStep6();
-                    break;
-                case 7:
-                    isValid = this.validateStep7();
-                    break;
             }
             if (isValid) {
                 // this.$toast.add({ severity: 'success', summary: 'Step ' + step + ' is valid', life: 3000 });
@@ -266,18 +144,13 @@ export default {
         },
 
         async handleRegister() {
-            if (this.handleNext(1) && this.handleNext(2) && this.handleNext(3) && this.handleNext(4) && this.handleNext(5) && this.handleNext(6) && this.handleNext(7)) {
+            if (this.handleNext(1) && this.handleNext(2) ) {
                 // If all validations pass, proceed with registration
                 const photographerRegistrationDTO = {
                     name: this.name,
                     email: this.emailId,
                     password: this.password,
                     phoneNumber: this.phoNo,
-                    serviceLocation: this.serviceLocation,
-                    languages: this.languages,
-                    services: this.services,
-                    experience: this.experience,
-                    aboutMe: this.aboutMe
                 };
 
                 try {
@@ -292,7 +165,7 @@ export default {
                     console.log(error);
                     const status = error.response.status;
                     if (status === 409) {
-                        this.$toast.add({ severity: 'error', summary: 'This Account already exists', life: 3000 });
+                        this.$toast.add({ severity: 'error', summary: 'This Account already exists', details: 'please login to this account', life: 3000 });
                     }
                 } finally {
                     this.isLoading = false;
@@ -300,6 +173,10 @@ export default {
             }
         },
         async verifyAndLogin() {
+            if(this.otp == null){
+                this.$toast.add({ severity: 'error', summary: 'Please enter a valid otp', life: 3000 });
+                return
+            }
             try {
                 this.isLoading = true;
                 const response = await AuthService.validateOtp(this.emailId, this.otp);
