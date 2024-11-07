@@ -123,3 +123,8 @@ export default {
     }
 }
 </style>
+<style>
+.p-panel-header{
+    padding: 2%;
+}
+</style>
