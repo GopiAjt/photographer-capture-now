@@ -29,10 +29,10 @@
                 <TabPanel value="profileDetails">
                     <ProfileDetails></ProfileDetails>
                 </TabPanel>
-                <TabPanel value="Favorites">
-                    
-                </TabPanel>
                 <TabPanel value="Password">
+
+                </TabPanel>
+                <TabPanel value="kyc">
                     
                 </TabPanel>
             </TabPanels>
