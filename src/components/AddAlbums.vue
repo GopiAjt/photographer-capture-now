@@ -58,7 +58,7 @@ export default {
 
             // Only allow 5 files max
             if (event.files.length > 5) {
-                console.error('You can only upload up to 5 files.');
+                this.$toast.add({ severity: 'warn', summary: 'File Limit Exceeded', detail: 'You can only upload up to 5 files.', life: 3000 });
                 return;
             }
 
@@ -80,8 +80,13 @@ export default {
         async submitGallery() {
             console.log('Uploading images...');
 
+            if (!this.category) {
+                this.$toast.add({ severity: 'warn', summary: 'Category Required', detail: 'Please select a category before uploading.', life: 3000 });
+                return;
+            }
+
             if (this.imageFiles.length === 0) {
-                console.error('No files selected.');
+                this.$toast.add({ severity: 'warn', summary: 'No Files Selected', detail: 'Please select files to upload.', life: 3000 });
                 return;
             }
 
@@ -98,15 +103,16 @@ export default {
                 this.isLoading = true;
                 const response = await AuthService.addAlbums(formData, this.user.authToken);
                 console.log(response.data);
-                console.log("Images uploaded successfully");
-                this.imagePreviews = null;
-                // Handle success (e.g., show a success message)
-                // Commit the Vuex mutation or dispatch an action
+                this.$toast.add({ severity: 'success', summary: 'Upload Success', detail: 'Images uploaded successfully!', life: 3000 });
+                this.imagePreviews = [];
+                this.imageFiles = [];
                 this.$store.commit('albumUpdated');
             } catch (error) {
                 console.log("Error during upload:", error);
-                // Handle error (e.g., show an error message)
-            } finally {
+                const errorMessage = error.response?.data?.message || 'An error occurred during upload.';
+                this.$toast.add({ severity: 'error', summary: 'Upload Failed', detail: errorMessage, life: 3000 });
+            }
+            finally {
                 this.isLoading = false;
             }
         }
