@@ -30,7 +30,7 @@
                     <ProfileDetails></ProfileDetails>
                 </TabPanel>
                 <TabPanel value="Password">
-
+                    <Password></Password>
                 </TabPanel>
                 <TabPanel value="kyc">
                     
@@ -45,6 +45,7 @@
 import Bookings from '@/components/dashboardComponents/Bookings.vue';
 import NavBar from '@/components/NavBar.vue';
 import ProfileDetails from '@/components/dashboardComponents/ProfileDetails.vue';
+import Password from '@/components/dashboardComponents/Password.vue';
 import { ref } from 'vue';
 const activeTab = ref('Bookings'); // Set the default active tab
 
