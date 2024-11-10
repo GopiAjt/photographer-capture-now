@@ -13,7 +13,7 @@
                     <br>
                     <Button label="Login" @click="handleLogin" fluid />
                     <br>
-                    <h5 style="cursor: pointer;">Forgot Password</h5>
+                    <h5 style="cursor: pointer;" @click="navigateTo('/forgot-password')">Forgot Password</h5>
                     <br>
                     <h5 @click="navigateTo('/register')" style="cursor: pointer;">Don't have an account create one!</h5>
                 </div>
