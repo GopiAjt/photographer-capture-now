@@ -17,6 +17,7 @@ const store = createStore({
         equipmentsUpdateFlag: false,
         albums: [],
         equipments: [],
+        reviews: [],
     },
     mutations: {
         setUser(state, user) {
@@ -52,6 +53,9 @@ const store = createStore({
         setEquipments(state, equipments){
             state.equipments = equipments;
         },
+        setReviews(state, reviews){
+            state.reviews = reviews;
+        },
     },
     actions: {
         login({ commit }, { user, token }) {
@@ -69,7 +73,10 @@ const store = createStore({
         },
         setEquipments({ commit }, equipments){
             commit('setEquipments', equipments);
-        }
+        },
+        setReviews({ commit }, reviews){
+            commit('setReviews', reviews);
+        },
     },
     getters: {
         isAuthenticated: state => !!state.token && !!state.user,
@@ -77,7 +84,8 @@ const store = createStore({
         token: state => state.token,
         isLogedIn: state => state.isLogedIn,
         albums: state => state.albums, // Getter for albums
-        equipments: state => state.equipments
+        equipments: state => state.equipments,
+        reviews: state => state.reviews,
     }
 });
 
