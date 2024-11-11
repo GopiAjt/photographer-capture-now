@@ -3,35 +3,39 @@
         <div style="display: flex; justify-content: space-between; gap: 15px;">
             <div class="form-group">
                 <label for="package-name" class="form-label">Package Name</label>
-                <InputText type="text" id="package-name" v-model="packageName" fluid/>
+                <InputText type="text" id="package-name" v-model="packageName" fluid />
             </div>
 
             <div class="form-group">
                 <label for="package-category" class="form-label">Package Category</label>
                 <Select v-model="category" inputId="package-category" :options="categories" optionLabel="name"
-                    placeholder="Select a Category" fluid/>
+                    placeholder="Select a Category" fluid />
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label for="event-rate" class="form-label">Event Price</label>
-                <InputNumber v-model="eventPrice" inputId="event-rate" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
+                <InputNumber v-model="eventPrice" inputId="event-rate" mode="currency" currency="INR"
+                    currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
                 <label for="one-day-rate" class="form-label">One Day Price</label>
-                <InputNumber v-model="oneDayPrice" inputId="one-day-rate" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
+                <InputNumber v-model="oneDayPrice" inputId="one-day-rate" mode="currency" currency="INR"
+                    currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
                 <label for="one-hour-rate" class="form-label">One Hour Price</label>
-                <InputNumber v-model="oneHourPrice" inputId="one-hour-rate" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
+                <InputNumber v-model="oneHourPrice" inputId="one-hour-rate" mode="currency" currency="INR"
+                    currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
                 <label for="video-price" class="form-label">Videography Price</label>
-                <InputNumber v-model="videoPrice" inputId="video-price" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" fluid />
+                <InputNumber v-model="videoPrice" inputId="video-price" mode="currency" currency="INR"
+                    currencyDisplay="code" locale="en-IN" fluid />
             </div>
 
             <div class="form-group">
@@ -74,7 +78,43 @@ export default {
         });
     },
     methods: {
+        validateInputs() {
+            if (!this.packageName) {
+                this.$toast.add({ severity: 'warn', summary: 'Package Name Required', detail: 'Please enter a package name.', life: 3000 });
+                return false;
+            }
+            if (!this.category) {
+                this.$toast.add({ severity: 'warn', summary: 'Category Required', detail: 'Please select a category.', life: 3000 });
+                return false;
+            }
+            if (!this.eventPrice) {
+                this.$toast.add({ severity: 'warn', summary: 'Event Price Required', detail: 'Please enter the event price.', life: 3000 });
+                return false;
+            }
+            if (!this.oneDayPrice) {
+                this.$toast.add({ severity: 'warn', summary: 'One Day Price Required', detail: 'Please enter the one-day price.', life: 3000 });
+                return false;
+            }
+            if (!this.oneHourPrice) {
+                this.$toast.add({ severity: 'warn', summary: 'One Hour Price Required', detail: 'Please enter the one-hour price.', life: 3000 });
+                return false;
+            }
+            if (!this.videoPrice) {
+                this.$toast.add({ severity: 'warn', summary: 'Videography Price Required', detail: 'Please enter the videography price.', life: 3000 });
+                return false;
+            }
+            if (!this.packageDescription) {
+                this.$toast.add({ severity: 'warn', summary: 'Description Required', detail: 'Please enter a package description.', life: 3000 });
+                return false;
+            }
+            return true;
+        },
         async addPackageHandler() {
+            // Validate Inputs
+            if (!this.validateInputs()) {
+                return;
+            }
+
             const packageData = {
                 email: this.photographer.email,
                 packageName: this.packageName,
@@ -87,17 +127,18 @@ export default {
             };
 
             console.log(packageData);
-            
+
             try {
                 this.isLoading = true;
                 const response = await AuthService.addPackge(packageData, this.photographer.authToken);
                 console.log(response.data);
                 this.photographer.packages = response.data;
                 this.$store.commit('setUser', this.photographer);
+                this.$toast.add({ severity: 'success', summary: 'Package Added', detail: 'Your package was added successfully!', life: 3000 });
             } catch (error) {
-                console.log(error);
-                
-            }finally{
+                console.log("Error during package upload:", error);
+                this.$toast.add({ severity: 'error', summary: 'Upload Failed', detail: 'An error occurred while uploading the package.', life: 3000 });
+            } finally {
                 this.isLoading = false;
             }
         }
