@@ -57,12 +57,12 @@ export default {
         }
     },
     computed: {
-        ...mapState(['equipmentsUpdateFlag'])  // Get the album update flag from Vuex
+        ...mapState(['equipmentsUpdatedFlag'])  // Get the album update flag from Vuex
     },
     watch: {
-        equipmentsUpdateFlag(newVal) {
+        equipmentsUpdatedFlag(newVal) {
             // Whenever the flag changes, refetch the albums
-            this.loadAlbums();
+            this.loadEquipments(true);
         }
     },
     setup(props) {
@@ -80,9 +80,9 @@ export default {
             { breakpoint: '560px', numVisible: 1 }
         ];
 
-        const loadAlbums = async () => {
+        const loadEquipments = async (forceReload = false) => {
             // Check if albums are already in the Vuex store
-            if (store.getters.equipments.length > 0) {
+            if (!forceReload && store.getters.equipments.length > 0) {
                 images.value = store.getters.equipments;  // Use cached albums
                 totalPhotographers.value = store.getters.equipments.length; // Set total photographers from cache
                 return; // Skip fetching from backend
@@ -111,11 +111,11 @@ export default {
         const onPageChange = (event) => {
             page.value = event.page;
             pageSize.value = event.rows;
-            loadAlbums();
+            loadEquipments();
         };
 
-        watch(() => props.photographer_id, loadAlbums, { immediate: true });
-        watch([page, pageSize], loadAlbums);
+        watch(() => props.photographer_id, loadEquipments, { immediate: true });
+        watch([page, pageSize], loadEquipments);
 
         return {
             images,
@@ -128,7 +128,7 @@ export default {
             Loading,
             imageClick,
             onPageChange,
-            loadAlbums
+            loadEquipments
         };
     },
     methods: {
@@ -153,7 +153,7 @@ export default {
                         console.log(response);
                         if (response.status === 200) {
                             console.log('deleted');
-                            this.loadAlbums();
+                            this.loadEquipments(true);
                         }
                     } catch (error) {
                         console.log(error);

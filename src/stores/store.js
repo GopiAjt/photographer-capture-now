@@ -14,7 +14,7 @@ const store = createStore({
         })(),
         isLogedIn: !!localStorage.getItem('token'),
         albumUpdateFlag: false,
-        equipmentsUpdateFlag: false,
+        equipmentsUpdatedFlag: false,
         albums: [],
         equipments: [],
         reviews: [],
@@ -45,7 +45,7 @@ const store = createStore({
             state.albumUpdateFlag = !state.albumUpdateFlag; // Toggle the flag to indicate an update
         },
         equipmentsUpdated(state) {
-            state.equipmentsUpdateFlag = !state.equipmentsUpdateFlag;
+            state.equipmentsUpdatedFlag = !state.equipmentsUpdatedFlag;
         },
         setAlbums(state, albums) {
             state.albums = albums; // Set the albums in the state
