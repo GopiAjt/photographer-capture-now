@@ -96,5 +96,11 @@ export default {
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+    sendForgotPasswordOtp(emailId){
+        return Api().post(`/photographer/forgotPasswordOtp?emailId=${emailId}`)
+    },
+    forgotPassword(emailId, newPass, otp){
+        return Api().post(`/photographer/forgotPassword?emailId=${emailId}&newPassword=${newPass}&otp=${otp}`)
     }
 };
