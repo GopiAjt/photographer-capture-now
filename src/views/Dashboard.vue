@@ -39,6 +39,7 @@
         </Tabs>
     </div>
     <Toast position="bottom-center" />
+    <Footer></Footer>
 </template>
 
 <script setup>
@@ -47,6 +48,7 @@ import NavBar from '@/components/NavBar.vue';
 import ProfileDetails from '@/components/dashboardComponents/ProfileDetails.vue';
 import Password from '@/components/dashboardComponents/Password.vue';
 import Kyc from '@/components/dashboardComponents/Kyc.vue';
+import Footer from '@/components/Footer.vue';
 import { ref } from 'vue';
 const activeTab = ref('Bookings'); // Set the default active tab
 

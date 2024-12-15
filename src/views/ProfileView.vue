@@ -80,6 +80,7 @@
     </div>
     <Toast position="bottom-center" />
     <ConfirmDialog></ConfirmDialog>
+    <Footer></Footer>
 </template>
 
 <script setup>
@@ -89,6 +90,7 @@ import Packages from '@/components/Packages.vue';
 import PhotograperAlbums from '@/components/PhotograperAlbums.vue';
 import PhotographerEquipments from '@/components/PhotographerEquipments.vue';
 import { ref } from 'vue';
+import Footer from '@/components/Footer.vue';
 const activeTab = ref('Albums'); // Set the default active tab
 </script>
 <script>
