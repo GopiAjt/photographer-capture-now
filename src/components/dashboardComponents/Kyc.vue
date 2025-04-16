@@ -27,8 +27,8 @@
 export default {
     data() {
         return {
-            accountNumber: null,
-            ifscCode: "",
+            accountNumber: '12345678990',
+            ifscCode: "qwert12345",
             govId: "",
             stdLicence: "",
         };
