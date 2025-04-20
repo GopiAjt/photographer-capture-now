@@ -3,7 +3,8 @@
         <NavBar></NavBar>
     </header>
     <div style="display: flex; align-items: center; padding: 3%; flex-direction: column; gap: 1rem;">
-        <img :src="userData.profilePhoto ? `data:image/jpeg;base64,${userData.profilePhoto}` : '/default_profile.png'" alt="" width="150px">
+        <img :src="userData.profilePhoto ? `data:image/jpeg;base64,${userData.profilePhoto}` : '/default_profile.png'"
+            alt="" width="150px" style="cursor: pointer;" @click="imgEditDrawer">
         <h2>{{ userData.name }}</h2>
     </div>
     <div class="card-panel">
@@ -38,6 +39,12 @@
             </TabPanels>
         </Tabs>
     </div>
+    <Drawer v-model:visible="visible" header="Drawer" position="full" style="height: auto">
+        <template #header>
+            <h3>Crop Image</h3>
+        </template>
+        <ImageCropper />
+    </Drawer>
     <Toast position="bottom-center" />
     <Footer></Footer>
 </template>
@@ -49,6 +56,7 @@ import ProfileDetails from '@/components/dashboardComponents/ProfileDetails.vue'
 import Password from '@/components/dashboardComponents/Password.vue';
 import Kyc from '@/components/dashboardComponents/Kyc.vue';
 import Footer from '@/components/Footer.vue';
+import ImageCropper from '@/components/dashboardComponents/ImageCropper.vue';
 import { ref } from 'vue';
 const activeTab = ref('Bookings'); // Set the default active tab
 
@@ -58,17 +66,23 @@ export default {
     components: {
         NavBar,
         Bookings,
-        Kyc
+        Kyc,
+        ImageCropper
     },
     data() {
         return {
             userData: this.$store.state.user,
-
+            visible: false
         }
     },
     mounted() {
         this.userData = this.$store.state.user;
         console.log(this.userData);
+    },
+    methods: {
+        imgEditDrawer(){
+            this.visible = true;
+        }
     }
 }
 

@@ -18,9 +18,10 @@
 
         <div v-if="croppedImage" class="preview-container">
             <img :src="croppedImage" alt="Cropped Preview" class="preview-image" />
-            <!-- PrimeVue Button for editing image -->
-            <Button @click="editImage" label="Edit Again" class="edit-button" />
-            <Button @click="uploadImage" label="Upload Images" class="edit-button" />
+            <div style="display: flex; gap: 20px;">
+                <Button @click="editImage" label="Edit Again" class="edit-button" />
+                <Button @click="uploadImage" label="Upload Images" class="edit-button" />
+            </div>
         </div>
         <Button v-if="!imageSource" @click="triggerFileInput" label="Upload Photo" class="upload-button" />
     </div>
@@ -29,12 +30,10 @@
 <script>
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
-import Button from 'primevue/button'
 
 export default {
     components: {
-        Cropper,
-        Button,
+        Cropper
     },
     data() {
         return {
@@ -83,7 +82,6 @@ export default {
         },
         uploadImage() {
             console.log('uploaded');
-
         }
     }
 }
