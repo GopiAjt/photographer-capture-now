@@ -63,7 +63,7 @@ import StepPanel from 'primevue/steppanel';
 import Tooltip from 'primevue/tooltip';
 import Select from 'primevue/select';
 import FileUpload from 'primevue/fileupload';
-
+import '@toast-ui/editor/dist/toastui-editor.css'
 
 const app = createApp(App)
 const MyPreset = definePreset(Aura, {

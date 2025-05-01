@@ -41,6 +41,8 @@
             <div class="form-group">
                 <label for="package-description" class="form-label">Package Description</label>
                 <Textarea v-model="packageDescription" id="package-description" autoResize />
+                <TipTapEditor v-model="packageDescription" />
+                <ToastEditor v-model="packageDescription" />
             </div>
 
             <Button label="Submit" @click="addPackageHandler" />
@@ -53,10 +55,14 @@
 import LoadingScreen from './LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 import { CategoryService } from '@/services/CategoryService';
+import TipTapEditor from '@/components/helperComponents/TipTapEditor.vue';
+import ToastEditor from '@/components/helperComponents/ToastEditor.vue'
 
 export default {
     components: {
-        LoadingScreen
+        LoadingScreen,
+        TipTapEditor,
+        ToastEditor
     },
     data() {
         return {
@@ -65,12 +71,12 @@ export default {
             oneDayPrice: null,
             oneHourPrice: null,
             videoPrice: null,
-            packageDescription: null,
+            packageDescription: '', // changed to empty string to store HTML
             category: null,
             categories: null,
             photographer: this.$store.state.user,
-            isLoading: false
-        }
+            isLoading: false,
+        };
     },
     mounted() {
         CategoryService.getCategories().then((data) => {
@@ -103,17 +109,14 @@ export default {
                 this.$toast.add({ severity: 'warn', summary: 'Videography Price Required', detail: 'Please enter the videography price.', life: 3000 });
                 return false;
             }
-            if (!this.packageDescription) {
+            if (!this.packageDescription || this.packageDescription.trim() === '<p><br></p>') {
                 this.$toast.add({ severity: 'warn', summary: 'Description Required', detail: 'Please enter a package description.', life: 3000 });
                 return false;
             }
             return true;
         },
         async addPackageHandler() {
-            // Validate Inputs
-            if (!this.validateInputs()) {
-                return;
-            }
+            if (!this.validateInputs()) return;
 
             const packageData = {
                 email: this.photographer.email,
@@ -123,15 +126,12 @@ export default {
                 oneDayRate: this.oneDayPrice,
                 oneHourRate: this.oneHourPrice,
                 videoRate: this.videoPrice,
-                description: this.packageDescription
+                description: this.packageDescription,
             };
-
-            console.log(packageData);
 
             try {
                 this.isLoading = true;
                 const response = await AuthService.addPackge(packageData, this.photographer.authToken);
-                console.log(response.data);
                 this.photographer.packages = response.data;
                 this.$store.commit('setUser', this.photographer);
                 this.$toast.add({ severity: 'success', summary: 'Package Added', detail: 'Your package was added successfully!', life: 3000 });
@@ -143,7 +143,7 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
 <style scoped>
