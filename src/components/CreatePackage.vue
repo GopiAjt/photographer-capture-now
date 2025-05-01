@@ -56,13 +56,12 @@ import LoadingScreen from './LoadingScreen.vue';
 import AuthService from '@/services/AuthService';
 import { CategoryService } from '@/services/CategoryService';
 import TipTapEditor from '@/components/helperComponents/TipTapEditor.vue';
-import ToastEditor from '@/components/helperComponents/ToastEditor.vue'
+// import ToastEditor from '@/components/helperComponents/ToastEditor.vue'
 
 export default {
     components: {
         LoadingScreen,
         TipTapEditor,
-        ToastEditor
     },
     data() {
         return {
