@@ -28,13 +28,12 @@
 <script>
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
-import { Button } from 'primevue/button'
+import AuthService from '@/services/AuthService'
 // Import your utility functions
-import { compressImage, dataURLtoBlob, convertBlobToBase64 } from '@/utils/imageUtils'
-import { showLoader, hideLoader } from '@/utils/loader'
+import { compressImage, dataURLtoBlob, convertBlobToBase64 } from '@/services/imageUtils.js'
 
 export default {
-    components: { Cropper, Button },
+    components: { Cropper },
     data() {
         return {
             imageSource: null,
@@ -42,12 +41,6 @@ export default {
             coordinates: null,
             userData: this.$store.state.user, // holds email and authToken
         }
-    },
-    created() {
-        // Load user info (adjust according to your auth flow)
-        // const stored = localStorage.getItem('data')
-        // this.userData = stored ? JSON.parse(stored) : {}
-        this.userData = this.photographer.email
     },
     methods: {
         triggerFileInput() {
@@ -68,10 +61,10 @@ export default {
             this.coordinates = coordinates
         },
         async cropImage() {
-            const canvas = this.$refs.cropper.getCanvas()
-            if (canvas) {
-                this.croppedImage = canvas.toDataURL('image/jpeg', 1.0)
-                this.imageSource = null
+            const result = this.$refs.cropper.getResult();
+            if (result && result.canvas) {
+                this.croppedImage = result.canvas.toDataURL('image/jpeg', 1.0);
+                this.imageSource = null;
             }
         },
         cancelCrop() {
@@ -84,7 +77,7 @@ export default {
         },
         async uploadImage() {
             try {
-                showLoader()
+                // showLoader()
                 // Compress to 600x600 with 0.8 quality
                 const compressedBase64 = await compressImage(
                     this.croppedImage,
@@ -93,21 +86,18 @@ export default {
                     0.8
                 )
                 const formData = new FormData()
+                console.log(this.userData.email);
+                
                 formData.append('email', this.userData.email)
                 const blob = dataURLtoBlob(compressedBase64)
-                formData.append('image', blob, 'profile.jpg')
+                formData.append('image', blob, 'image.jpg')
 
-                const response = await fetch(
-                    window.URI + '/photographer/changePhoto',
-                    {
-                        method: 'POST',
-                        headers: {
-                            Authorization: `Bearer ${this.userData.authToken}`,
-                        },
-                        body: formData,
-                    }
-                )
+                const response = await AuthService.changePhoto(formData, this.userData.authToken)
 
+                console.log(this.userData.authToken);
+                
+                console.log(response);
+                
                 if (response.ok) {
                     console.log('Image uploaded successfully')
                     const arrayBuffer = await response.arrayBuffer()
@@ -117,16 +107,17 @@ export default {
                     const base64Image = await convertBlobToBase64(imageURL)
                     this.userData.profilePhoto = base64Image
                     localStorage.setItem('data', JSON.stringify(this.userData))
-                    hideLoader()
+                    // hideLoader()
                     this.$router.push({ name: 'Settings' })
                 } else {
-                    hideLoader()
+                    // hideLoader()
                     console.error('Upload error:', response.status)
                     // Optionally show toast message here
                 }
             } catch (error) {
-                hideLoader()
+                // hideLoader()
                 console.error('Upload exception:', error)
+                this.$toast.add({ severity: 'error', summary: 'Upload Failed', detail: error.message, life: 3000 });
                 // Optionally show toast message here
             }
         },

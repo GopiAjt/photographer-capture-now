@@ -102,5 +102,13 @@ export default {
     },
     forgotPassword(emailId, newPass, otp){
         return Api().post(`/photographer/forgotPassword?emailId=${emailId}&newPassword=${newPass}&otp=${otp}`)
+    },
+    changePhoto(photoData, token){
+        return Api().post(`/photographer/changePhoto`, photoData, {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 };
