@@ -42,7 +42,7 @@
     <Drawer v-model:visible="addAlbumVisible" header="Add Albums" position="full" style="height: auto">
         <AddAlbums></AddAlbums>
     </Drawer>
-    <Drawer v-model:visible="addPackageVisible" header="Add Package" position="full">
+    <Drawer v-model:visible="addPackageVisible" header="Add Package" position="full" style="height: auto">
         <CreatePackage></CreatePackage>
     </Drawer>
     <Drawer v-model:visible="addEquipmentVisible" header="Add Equipments" position="full" style="height: auto">

@@ -62,7 +62,9 @@ watch(() => props.modelValue, html => {
 })
 
 onBeforeUnmount(() => {
-  editor?.destroy()
+  if (editor && typeof editor.destroy === 'function') {
+    editor.destroy()
+  }
 })
 </script>
 
